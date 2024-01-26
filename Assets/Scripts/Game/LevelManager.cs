@@ -31,8 +31,9 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     {
         while (true)
         {
-            Enemy enemyScript = Instantiate(enemiesPrefabs[Random.Range(0, 1)], GetRandomOffsetPos(SpawnOffset[0], SpawnOffset[1], 1), Quaternion.identity, enemiesParent).GetComponent<Enemy>();
-            enemyScript._movementDirection = playerTransf.position - enemyScript.transform.position;
+            Transform enemyTrasnf = Instantiate(enemiesPrefabs[Random.Range(0, 1)], GetRandomOffsetPos(SpawnOffset[0], SpawnOffset[1], 1), Quaternion.identity, enemiesParent).transform;
+            Enemy enemyScript = enemyTrasnf.GetComponent<Enemy>();
+            enemyScript._movementDirection = (playerTransf.position - enemyScript.transform.position).normalized;
 
             yield return new WaitForSeconds(1);
         }
@@ -53,4 +54,18 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
 
         return result;
     }
+    public Vector2 GetRandomOffsetPosByX(float x, float y, float offset)
+    {
+        Vector2 result = new Vector2();
+
+        switch (Random.Range(0, 4))
+        {
+            case 0: result = new Vector2(Random.Range(-x, x), Random.Range(y, y + offset)); break;
+            case 2: result = new Vector2(Random.Range(-x, x), Random.Range(-y - offset, -y)); break;
+            default: break;
+        }
+
+        return result;
+    }
+
 }
