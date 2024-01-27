@@ -7,28 +7,33 @@ public class Player : Subject
 {
     [Header("Settings")]
     public float Speed;
-    public float DashSpeed;
-
-    [Header("other")]
-    [SerializeField] Camera mainCamera;
 
     [Header("effects")]
     [SerializeField] GameObject SlashEffectPrefab;
     [SerializeField] Transform EffectsParent;
 
     //local
+    Camera MainCamera;
     Inputs _input;
     Rigidbody2D _rb;
 
-    float _curMovementSpeed;
+    Vector2 _curMousePos;
+    Vector2 _curClampedMousePos;
 
-    //cors
-    Coroutine _dashCor;
+    [HideInInspector] public float _curMovementSpeed;
+
+
+    //abilities
+    HashSet<EnumsActions> _skillsSet = new HashSet<EnumsActions>();
+
+    //bools
+    bool _canUseSkill = true;
 
     protected override void Awake()
     {
         base.Awake();
 
+        MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         _rb = GetComponent<Rigidbody2D>();
 
         _input = new Inputs();
@@ -44,15 +49,18 @@ public class Player : Subject
         base.Start();
 
         _curMovementSpeed = Speed;
+
+        _skillsSet.Add(EnumsActions.SlowMo);
+        _skillsSet.Add(EnumsActions.Dash);
     }
 
     void Update()
     {
-        transform.position = Vector2.Lerp(transform.position, mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()), _curMovementSpeed * Time.deltaTime);
-
-        Debug.Log(_curMovementSpeed);
+        _curMousePos = Mouse.current.position.ReadValue();
+        _curClampedMousePos = new Vector2(Mathf.Clamp(_curMousePos.x, 0f, Screen.width),Mathf.Clamp(_curMousePos.y, 0f, Screen.height));
+        transform.position = Vector2.Lerp(transform.position, GetWorldPoint(), _curMovementSpeed * Time.deltaTime);
+        Debug.Log(Time.timeScale);
     }
-
     //actions
     void OnEscape()
     {
@@ -61,10 +69,8 @@ public class Player : Subject
 
     void OnLeftMouseButton()
     {
-        Vector2 direction = (mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position).normalized;
+        Vector2 direction = (GetWorldPoint() - (Vector2)transform.position).normalized;
 
-        if (_dashCor != null) StopCoroutine(_dashCor);
-        _dashCor = StartCoroutine(DashCor());
         Instantiate(SlashEffectPrefab, direction * 6 + (Vector2)transform.position, Quaternion.identity, EffectsParent);
 
 
@@ -73,27 +79,23 @@ public class Player : Subject
 
     void OnRightMouseButton()
     {
-        
+        if (!_canUseSkill)
+        {
+            Observer.Instance.NotifyObservers(EnumsActions.SkillUsedFailed);
+            return;
+        }
 
+        Observer.Instance.NotifyObservers(EnumsActions.SkillUsed);
+
+        foreach (var skill in _skillsSet)
+        {
+            Observer.Instance.NotifyObservers(skill);
+        }
     }
 
-    //cors
-    IEnumerator DashCor()
+    //other methods
+    Vector2 GetWorldPoint()
     {
-        while (_curMovementSpeed < DashSpeed - 0.1f)
-        {
-            _curMovementSpeed = Mathf.Lerp(_curMovementSpeed, DashSpeed, Time.deltaTime);
-
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(0.1f);
-
-        while (_curMovementSpeed > Speed + 0.1f)
-        {
-            _curMovementSpeed = Mathf.Lerp(_curMovementSpeed, Speed, Time.deltaTime);
-
-            yield return null;
-        }
+        return MainCamera.ScreenToWorldPoint(_curClampedMousePos);
     }
 }

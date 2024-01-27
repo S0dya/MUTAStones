@@ -149,8 +149,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4128406789721168516}
-  - component: {fileID: 4128406789721168517}
   - component: {fileID: 4128406789721168521}
+  - component: {fileID: 6389440951310454406}
+  - component: {fileID: 4128406789721168517}
   - component: {fileID: 4128406789721168522}
   - component: {fileID: 6584308409808212682}
   m_Layer: 0
@@ -176,6 +177,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4128406789721168521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4128406789721168518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421a11d33f0b9d449a7d3b19f5fe56a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionsDictionaries: []
+  Speed: 1.2
+  SlashEffectPrefab: {fileID: 5113594176067235209, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
+  EffectsParent: {fileID: 0}
+  _curMovementSpeed: 0
+--- !u!114 &6389440951310454406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4128406789721168518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd058046f8146e242a34f0ce0ef7ca2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionsDictionaries: []
+  SlowMoValue: 0
+  SlowMoDuration: 0
+  SlowMoSpeed: 0
+  DashSpeed: 0
 --- !u!212 &4128406789721168517
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -228,24 +263,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4128406789721168521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4128406789721168518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421a11d33f0b9d449a7d3b19f5fe56a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActionsDictionaries: []
-  Speed: 1.2
-  DashSpeed: 5
-  mainCamera: {fileID: 0}
-  SlashEffectPrefab: {fileID: 5113594176067235209, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-  EffectsParent: {fileID: 0}
 --- !u!50 &4128406789721168522
 Rigidbody2D:
   serializedVersion: 4

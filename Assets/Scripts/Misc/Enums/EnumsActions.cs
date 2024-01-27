@@ -1,13 +1,8 @@
 public enum EnumsActions 
 {
-    OnSwitchToFirstPerson,
-    OnSwitchToIsometric,
-    OnSwitchToInteraction,
+    SlowMo,
+    Dash,
 
-    OnFire,
-    OnReload,
-    OnReloadingStop,
-
-    OnInteractionGrab,
-    OnInteractionRelease,
+    SkillUsed,
+    SkillUsedFailed,
 }
