@@ -7,6 +7,7 @@ public class Player : Subject
 {
     [Header("Settings")]
     public float Speed;
+    public float DashSpeed;
 
     [Header("other")]
     [SerializeField] Camera mainCamera;
@@ -17,10 +18,12 @@ public class Player : Subject
 
     //local
     Inputs _input;
-
     Rigidbody2D _rb;
 
-    Vector2 _inputDirection;
+    float _curMovementSpeed;
+
+    //cors
+    Coroutine _dashCor;
 
     protected override void Awake()
     {
@@ -36,9 +39,18 @@ public class Player : Subject
         _input.Main.Skill.performed += ctx => OnRightMouseButton();
     }
 
+    protected override void Start()
+    {
+        base.Start();
+
+        _curMovementSpeed = Speed;
+    }
+
     void Update()
     {
-        transform.position = Vector2.Lerp(transform.position, mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Speed * Time.deltaTime);
+        transform.position = Vector2.Lerp(transform.position, mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()), _curMovementSpeed * Time.deltaTime);
+
+        Debug.Log(_curMovementSpeed);
     }
 
     //actions
@@ -49,9 +61,11 @@ public class Player : Subject
 
     void OnLeftMouseButton()
     {
-        Vector2 direction = (Mouse.current.position.ReadValue() - (Vector2)transform.position).normalized;
+        Vector2 direction = (mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position).normalized;
 
-        Instantiate(SlashEffectPrefab, direction * 1.5f + (Vector2)transform.position, Quaternion.identity, EffectsParent);
+        if (_dashCor != null) StopCoroutine(_dashCor);
+        _dashCor = StartCoroutine(DashCor());
+        Instantiate(SlashEffectPrefab, direction * 6 + (Vector2)transform.position, Quaternion.identity, EffectsParent);
 
 
 
@@ -63,5 +77,23 @@ public class Player : Subject
 
     }
 
+    //cors
+    IEnumerator DashCor()
+    {
+        while (_curMovementSpeed < DashSpeed - 0.1f)
+        {
+            _curMovementSpeed = Mathf.Lerp(_curMovementSpeed, DashSpeed, Time.deltaTime);
 
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        while (_curMovementSpeed > Speed + 0.1f)
+        {
+            _curMovementSpeed = Mathf.Lerp(_curMovementSpeed, Speed, Time.deltaTime);
+
+            yield return null;
+        }
+    }
 }
