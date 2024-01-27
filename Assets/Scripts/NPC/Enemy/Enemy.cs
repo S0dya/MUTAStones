@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [Header("Settings")]
     public float MovementSpeed;
+    public SO_Mutation Mutation;
 
     //local
     Rigidbody2D _rb;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
         _rb.velocity = _movementDirection * MovementSpeed;
     }
 
+    //trigger
     void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(gameObject);

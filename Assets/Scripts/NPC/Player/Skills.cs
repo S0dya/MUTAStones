@@ -57,7 +57,7 @@ public class Skills : Subject
     {
         while (IsValBigger(DashSpeed, MovementSpeed, 0.1f))
         {
-            MovementSpeed = Mathf.Lerp(MovementSpeed, DashSpeed, Time.deltaTime);
+            MovementSpeed = Lerp(MovementSpeed, DashSpeed, 1);
 
             yield return null;
         }
@@ -67,7 +67,7 @@ public class Skills : Subject
 
         while (IsValBigger(MovementSpeed, MaxSpeed, -0.1f))
         {
-            MovementSpeed = Mathf.Lerp(MovementSpeed, MaxSpeed, Time.deltaTime);
+            MovementSpeed = Lerp(MovementSpeed, MaxSpeed, 1);
 
             yield return null;
         }
@@ -76,18 +76,18 @@ public class Skills : Subject
 
     IEnumerator SlowMoCor()
     {
-        while (IsValBigger(Time.timeScale, SlowMoValue, 0.01f))
+        while (IsValBigger(Time.timeScale, SlowMoValue, 0.05f))
         {
-            Time.timeScale = Mathf.Lerp(Time.timeScale, SlowMoValue, Time.fixedTime);
+            Time.timeScale = Lerp(Time.timeScale, SlowMoValue, SlowMoSpeed);
 
             yield return null;
         }
         Time.timeScale = SlowMoValue;
         yield return new WaitForSeconds(SlowMoDuration);
 
-        while (IsValBigger(1, Time.timeScale, 0.01f))
+        while (IsValBigger(1, Time.timeScale, 0.05f))
         {
-            Time.timeScale = Mathf.Lerp(Time.timeScale, 1, Time.fixedTime);
+            Time.timeScale = Lerp(Time.timeScale, 1, SlowMoSpeed);
 
             yield return null;
         }
@@ -98,5 +98,10 @@ public class Skills : Subject
     bool IsValBigger(float firstVal, float secondVal, float offset)
     {
         return firstVal > secondVal + offset;
+    }
+
+    float Lerp(float val, float target, float speed)
+    {
+         return Mathf.Lerp(val, target, speed * Time.deltaTime);
     }
 }

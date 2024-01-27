@@ -1451,6 +1451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1152037285}
+  - component: {fileID: 1152037286}
   m_Layer: 0
   m_Name: InGame
   m_TagString: Untagged
@@ -1481,6 +1482,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1152037286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152037284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c82a4b1eb337a4fbfbd6b6d0b78896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimerText: {fileID: 1331260890}
 --- !u!1 &1216489578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2668,6 +2682,22 @@ PrefabInstance:
       propertyPath: EffectsParent
       value: 
       objectReference: {fileID: 1290952800}
+    - target: {fileID: 4128406789721168521, guid: 87b33302af882214a815ad7af8524034, type: 3}
+      propertyPath: StartingColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128406789721168521, guid: 87b33302af882214a815ad7af8524034, type: 3}
+      propertyPath: StartingColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128406789721168521, guid: 87b33302af882214a815ad7af8524034, type: 3}
+      propertyPath: StartingColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128406789721168521, guid: 87b33302af882214a815ad7af8524034, type: 3}
+      propertyPath: StartingColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6389440951310454406, guid: 87b33302af882214a815ad7af8524034, type: 3}
       propertyPath: DashSpeed
       value: 5

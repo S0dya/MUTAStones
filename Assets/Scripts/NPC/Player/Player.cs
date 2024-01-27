@@ -12,10 +12,14 @@ public class Player : Subject
     [SerializeField] GameObject SlashEffectPrefab;
     [SerializeField] Transform EffectsParent;
 
+    [Header("other")]
+    [SerializeField] Color StartingColor;
+
     //local
     Camera MainCamera;
     Inputs _input;
     Rigidbody2D _rb;
+    SpriteRenderer _sr;
 
     Vector2 _curMousePos;
     Vector2 _curClampedMousePos;
@@ -35,13 +39,14 @@ public class Player : Subject
 
         MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         _rb = GetComponent<Rigidbody2D>();
+        _sr = GetComponent<SpriteRenderer>();
 
         _input = new Inputs();
         _input.Main.Enable();
 
-        _input.Main.Escape.performed += ctx => OnEscape();
         _input.Main.Attack.performed += ctx => OnLeftMouseButton();
         _input.Main.Skill.performed += ctx => OnRightMouseButton();
+        _input.Main.Escape.performed += ctx => OnEscape();
     }
 
     protected override void Start()
@@ -51,7 +56,6 @@ public class Player : Subject
         _curMovementSpeed = Speed;
 
         _skillsSet.Add(EnumsActions.SlowMo);
-        _skillsSet.Add(EnumsActions.Dash);
     }
 
     void Update()
@@ -62,11 +66,6 @@ public class Player : Subject
         Debug.Log(Time.timeScale);
     }
     //actions
-    void OnEscape()
-    {
-        Debug.Log("asd");
-    }
-
     void OnLeftMouseButton()
     {
         Vector2 direction = (GetWorldPoint() - (Vector2)transform.position).normalized;
@@ -92,10 +91,25 @@ public class Player : Subject
             Observer.Instance.NotifyObservers(skill);
         }
     }
+    
+    void OnEscape()
+    {
+    }
 
     //other methods
     Vector2 GetWorldPoint()
     {
         return MainCamera.ScreenToWorldPoint(_curClampedMousePos);
+    }
+
+    void GetMutation(SO_Mutation mutation)
+    {
+
+
+        if (_skillsSet.Contains(mutation.Skill)) return;
+
+        _skillsSet.Add(mutation.Skill);
+        _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
+
     }
 }
