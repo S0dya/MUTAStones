@@ -18,8 +18,8 @@ TagManager:
   - Enemy
   - 
   - 
-  - 
-  - 
+  - Player
+  - Attack
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemies
+    uniqueID: 2992520027
+    locked: 0
+  - name: Player
+    uniqueID: 783311421
+    locked: 0
+  - name: Effects
+    uniqueID: 1650882767
+    locked: 0
+  - name: Borders
+    uniqueID: 3929958527
     locked: 0

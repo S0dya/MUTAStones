@@ -26,6 +26,12 @@ public class Enemy : MonoBehaviour
     //trigger
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == 14)
+        {
+            Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            player.Mutate(Mutation);
+        }
+
         Destroy(gameObject);
     }
 }

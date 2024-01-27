@@ -14,12 +14,16 @@ public class Player : Subject
 
     [Header("other")]
     [SerializeField] Color StartingColor;
+    [SerializeField] TrailRenderer Trail;
 
     //local
     Camera MainCamera;
     Inputs _input;
     Rigidbody2D _rb;
     SpriteRenderer _sr;
+
+    Material _trailMat;
+
 
     Vector2 _curMousePos;
     Vector2 _curClampedMousePos;
@@ -42,6 +46,7 @@ public class Player : Subject
         MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _trailMat = Trail.material;
 
         AssignActions();
         AssignInput();
@@ -125,14 +130,12 @@ public class Player : Subject
         return MainCamera.ScreenToWorldPoint(_curClampedMousePos);
     }
 
-    void GetMutation(SO_Mutation mutation)
+    public void Mutate(SO_Mutation mutation)
     {
-
-
         if (_skillsSet.Contains(mutation.Skill)) return;
 
         _skillsSet.Add(mutation.Skill);
-        _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
-
+        _trailMat.color = _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
+        
     }
 }
