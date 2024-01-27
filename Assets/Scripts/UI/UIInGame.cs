@@ -6,23 +6,31 @@ using TMPro;
 
 public class UIInGame : Subject
 {
+    [Header("delay images")]
+    [SerializeField] Image AttackDelayImage;
+    [SerializeField] Image SkillDelayImage;
+
+    [Header("timer")]
     [SerializeField] TextMeshProUGUI TimerText;
 
     //local
 
     //time
-    float _curTime;
     float _curMilisecs;
     float _curSecs;
     float _curMins;
 
     string[] _timeStrings = new string[3];
 
+
     protected override void Awake()
     {
         base.Awake();
 
-        for (int i = 0; i < 3; i++) _timeStrings[i] = "00"; 
+        for (int i = 0; i < 3; i++) _timeStrings[i] = "00";
+
+        AddAction(EnumsActions.AttackUsed, OnAttackUsed);
+        AddAction(EnumsActions.SkillUsed, OnSkillUsed);
     }
 
     void Update()
@@ -51,6 +59,33 @@ public class UIInGame : Subject
         }
 
         TimerText.text = string.Join(':', _timeStrings);
+    }
+
+    //actions
+    void OnAttackUsed()
+    {
+        StartCoroutine(DelayCor(AttackDelayImage, GameManager.Instance.GameData.AttackDelayDuration, EnumsActions.AttackRestored));
+    }
+
+    void OnSkillUsed()
+    {
+        StartCoroutine(DelayCor(SkillDelayImage, GameManager.Instance.GameData.SkillDelayDuration, EnumsActions.SkillRestored));
+    }
+
+    //cors
+    IEnumerator DelayCor(Image image, float duration, EnumsActions enumAction)
+    {
+        float elapsedTime = duration;
+
+        while (elapsedTime > 0)
+        {
+            elapsedTime -= Time.deltaTime;
+            image.fillAmount = Mathf.Clamp01(elapsedTime / duration);
+
+            yield return null;
+        }
+
+        Observer.Instance.NotifyObservers(enumAction);
     }
 
     //other scripts

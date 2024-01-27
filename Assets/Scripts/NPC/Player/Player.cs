@@ -31,7 +31,9 @@ public class Player : Subject
     HashSet<EnumsActions> _skillsSet = new HashSet<EnumsActions>();
 
     //bools
+    bool _canAttack = true;
     bool _canUseSkill = true;
+
 
     protected override void Awake()
     {
@@ -41,6 +43,19 @@ public class Player : Subject
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
 
+        AssignActions();
+        AssignInput();
+    }
+    void AssignActions()
+    {
+        AddAction(EnumsActions.AttackUsed, CantUseAttack);
+        AddAction(EnumsActions.SkillUsed, CantUseSkill);
+
+        AddAction(EnumsActions.AttackRestored, CanUseAttack);
+        AddAction(EnumsActions.SkillRestored, CanUseSkill);
+    }
+    void AssignInput()
+    {
         _input = new Inputs();
         _input.Main.Enable();
 
@@ -65,15 +80,20 @@ public class Player : Subject
         transform.position = Vector2.Lerp(transform.position, GetWorldPoint(), _curMovementSpeed * Time.deltaTime);
         Debug.Log(Time.timeScale);
     }
-    //actions
+
+    //input
     void OnLeftMouseButton()
     {
+        if (!_canAttack)
+        {
+            Observer.Instance.NotifyObservers(EnumsActions.AttackUsedFailed);
+            return;
+        }
+        
+        Observer.Instance.NotifyObservers(EnumsActions.AttackUsed);
+
         Vector2 direction = (GetWorldPoint() - (Vector2)transform.position).normalized;
-
         Instantiate(SlashEffectPrefab, direction * 6 + (Vector2)transform.position, Quaternion.identity, EffectsParent);
-
-
-
     }
 
     void OnRightMouseButton()
@@ -86,15 +106,18 @@ public class Player : Subject
 
         Observer.Instance.NotifyObservers(EnumsActions.SkillUsed);
 
-        foreach (var skill in _skillsSet)
-        {
-            Observer.Instance.NotifyObservers(skill);
-        }
+        foreach (var skill in _skillsSet) Observer.Instance.NotifyObservers(skill);
     }
     
     void OnEscape()
     {
     }
+
+    //actions
+    void CantUseAttack() => _canAttack = false;
+    void CantUseSkill() => _canUseSkill = false;
+    void CanUseAttack() => _canAttack = true;
+    void CanUseSkill() => _canUseSkill = true;
 
     //other methods
     Vector2 GetWorldPoint()

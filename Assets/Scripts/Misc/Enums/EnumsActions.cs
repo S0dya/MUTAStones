@@ -5,4 +5,10 @@ public enum EnumsActions
 
     SkillUsed,
     SkillUsedFailed,
+
+    AttackUsed,
+    AttackUsedFailed,
+
+    AttackRestored,
+    SkillRestored,
 }
