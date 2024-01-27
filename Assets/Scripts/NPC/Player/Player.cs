@@ -76,6 +76,7 @@ public class Player : Subject
         _curMovementSpeed = Speed;
 
         _skillsSet.Add(EnumsActions.SlowMo);
+        _skillsSet.Add(EnumsActions.AvoidEnemies);
     }
 
     void Update()
@@ -83,7 +84,6 @@ public class Player : Subject
         _curMousePos = Mouse.current.position.ReadValue();
         _curClampedMousePos = new Vector2(Mathf.Clamp(_curMousePos.x, 0f, Screen.width),Mathf.Clamp(_curMousePos.y, 0f, Screen.height));
         transform.position = Vector2.Lerp(transform.position, GetWorldPoint(), _curMovementSpeed * Time.deltaTime);
-        Debug.Log(Time.timeScale);
     }
 
     //input

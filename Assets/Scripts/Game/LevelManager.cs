@@ -14,6 +14,8 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     Transform playerTransf;
     Player player;
 
+    List<Enemy> _allEnemies = new List<Enemy>();
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,18 +29,30 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
         StartCoroutine(WavesCor());
     }
 
+    void Update()
+    {
+        Debug.Log(_allEnemies.Count);
+    }
+
     IEnumerator WavesCor()
     {
         while (true)
         {
-            Transform enemyTrasnf = Instantiate(enemiesPrefabs[Random.Range(0, 1)], GetRandomOffsetPos(SpawnOffset[0], SpawnOffset[1], 1), Quaternion.identity, enemiesParent).transform;
+            Transform enemyTrasnf = InstantiateEnemy(enemiesPrefabs[Random.Range(0, 1)], GetRandomOffsetPos(SpawnOffset[0], SpawnOffset[1], 1));
             Enemy enemyScript = enemyTrasnf.GetComponent<Enemy>();
-            enemyScript._movementDirection = (playerTransf.position - enemyScript.transform.position).normalized;
+            enemyScript.MovemenetDirection = (playerTransf.position - enemyScript.transform.position).normalized;
 
             yield return new WaitForSeconds(1);
         }
     }
 
+
+    //other methods
+    Transform InstantiateEnemy(GameObject prefab, Vector2 pos)
+    {
+        return Instantiate(prefab, pos, Quaternion.identity, enemiesParent).transform;
+    }
+    
     public Vector2 GetRandomOffsetPos(float x, float y, float offset)
     {
         return Random.Range(0, 2) == 1 ? GetRandomOffsetPosByX(x, y, offset) : GetRandomOffsetPosByY(x, y, offset);
@@ -52,5 +66,16 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     {
         return Random.Range(0, 2) == 1 ? new Vector2(Random.Range(-x, x), Random.Range(y, y + offset)) 
             : new Vector2(Random.Range(-x, x), Random.Range(-y - offset, -y));
+    }
+
+    public void FreezeEnemies() => LoopThroughtEnemiesTransforms(enemiesParent, FreezeEnemy);
+    void FreezeEnemy(Enemy enemy) => enemy.Freeze();
+
+    public void ChangeEnemiesDirections() => LoopThroughtEnemiesTransforms(enemiesParent, ChangeEnemyDirection);
+    void ChangeEnemyDirection(Enemy enemy) => enemy.ChangeDirection();
+
+    void LoopThroughtEnemiesTransforms(Transform parent, System.Action<Enemy> action)
+    {
+        foreach (Transform transf in parent) action.Invoke(transf.GetComponent<Enemy>());
     }
 }

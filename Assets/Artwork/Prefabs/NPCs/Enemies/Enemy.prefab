@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 20
   Mutation: {fileID: 0}
+  UnFreezeSpeed: 1
+  ChangeDirectionSpeed: 5
   _movementDirection: {x: 0, y: 0}
 --- !u!50 &8395405877166365538
 Rigidbody2D:

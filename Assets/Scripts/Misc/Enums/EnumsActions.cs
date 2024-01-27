@@ -2,6 +2,8 @@ public enum EnumsActions
 {
     SlowMo,
     Dash,
+    Freeze,
+    AvoidEnemies,
 
     SkillUsed,
     SkillUsedFailed,
@@ -11,4 +13,6 @@ public enum EnumsActions
 
     AttackRestored,
     SkillRestored,
+
+    EnemyKilled,
 }

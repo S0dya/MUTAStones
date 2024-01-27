@@ -37,20 +37,15 @@ public class Skills : Subject
 
         AddAction(EnumsActions.SlowMo, OnSlowMo);
         AddAction(EnumsActions.Dash, OnDash);
+        AddAction(EnumsActions.Freeze, OnFreeze);
+        AddAction(EnumsActions.AvoidEnemies, OnAvoidEnemies);
     }
 
     //skills
-    void OnSlowMo()
-    {
-        if (_slowMoCor != null) StopCoroutine(_slowMoCor);
-        _slowMoCor = StartCoroutine(SlowMoCor());
-    }
-
-    void OnDash()
-    {
-        if (_dashCor != null) StopCoroutine(_dashCor);
-        _dashCor = StartCoroutine(DashCor());
-    }
+    void OnSlowMo() => _slowMoCor = GameManager.Instance.RestartCor(_slowMoCor, SlowMoCor());
+    void OnDash() => _dashCor = GameManager.Instance.RestartCor(_dashCor, DashCor());
+    void OnFreeze() => LevelManager.Instance.FreezeEnemies();
+    void OnAvoidEnemies() => LevelManager.Instance.ChangeEnemiesDirections();
 
     //cors
     IEnumerator DashCor()
@@ -103,5 +98,16 @@ public class Skills : Subject
     float Lerp(float val, float target, float speed)
     {
          return Mathf.Lerp(val, target, speed * Time.deltaTime);
+    }
+
+    void StopCor(Coroutine cor)
+    {
+        if (cor != null) StopCoroutine(cor);
+    }
+
+    Coroutine RestartCor(Coroutine cor, IEnumerator to)
+    {
+        if (cor != null) StopCoroutine(cor);
+        return StartCoroutine(to);
     }
 }
