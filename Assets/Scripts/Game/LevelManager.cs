@@ -41,31 +41,16 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
 
     public Vector2 GetRandomOffsetPos(float x, float y, float offset)
     {
-        Vector2 result = new Vector2();
-
-        switch (Random.Range(0, 4))
-        {
-            case 0: result = new Vector2(Random.Range(-x, x), Random.Range(y, y + offset)); break;
-            case 1: result = new Vector2(Random.Range(x, x + offset), Random.Range(-y, y)); break;
-            case 2: result = new Vector2(Random.Range(-x, x), Random.Range(-y - offset, -y)); break;
-            case 3: result = new Vector2(Random.Range(-x - offset, -x), Random.Range(-y, y)); break;
-            default: break;
-        }
-
-        return result;
+        return Random.Range(0, 2) == 1 ? GetRandomOffsetPosByX(x, y, offset) : GetRandomOffsetPosByY(x, y, offset);
     }
     public Vector2 GetRandomOffsetPosByX(float x, float y, float offset)
     {
-        Vector2 result = new Vector2();
-
-        switch (Random.Range(0, 4))
-        {
-            case 0: result = new Vector2(Random.Range(-x, x), Random.Range(y, y + offset)); break;
-            case 2: result = new Vector2(Random.Range(-x, x), Random.Range(-y - offset, -y)); break;
-            default: break;
-        }
-
-        return result;
+        return Random.Range(0, 2) == 1 ? new Vector2(Random.Range(x, x + offset), Random.Range(-y, y))
+            : new Vector2(Random.Range(-x - offset, -x), Random.Range(-y, y));
     }
-
+    public Vector2 GetRandomOffsetPosByY(float x, float y, float offset)
+    {
+        return Random.Range(0, 2) == 1 ? new Vector2(Random.Range(-x, x), Random.Range(y, y + offset)) 
+            : new Vector2(Random.Range(-x, x), Random.Range(-y - offset, -y));
+    }
 }
