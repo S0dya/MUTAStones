@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6565b1d7a4b7145a97cceedc7e2151, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Dash
+  <Name>k__BackingField: Shield
   <Description>k__BackingField: 
   <ItemImage>k__BackingField: {fileID: 0}
-  <Skill>k__BackingField: 1
+  <Skill>k__BackingField: 4
   <Color>k__BackingField: {r: 0, g: 0.014327049, b: 1, a: 1}

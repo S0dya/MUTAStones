@@ -88,8 +88,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
-
     //trigger
     void OnTriggerEnter2D(Collider2D collision)
     {

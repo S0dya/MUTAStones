@@ -7,8 +7,15 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     [Header("settings")]
     public float[] SpawnOffset = new float[2];
 
-    [SerializeField] GameObject[] enemiesPrefabs;
+    [Header("other")]
     [SerializeField] Transform enemiesParent;
+
+    [Header("enemies prefabs")]
+    [SerializeField] GameObject[] enemiesPrefabs;
+    [SerializeField] GameObject TriangleEnemyPrefab;
+    [SerializeField] GameObject SquareEnemyPrefab;
+
+
 
     //local
     Transform playerTransf;
