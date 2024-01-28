@@ -11,6 +11,9 @@ public class Skills : Subject
 
     public float DashSpeed;
 
+    [Header("other skills variables")]
+    [SerializeField] GameObject ShieldObj;
+
     //local
     Player player;
 
@@ -39,6 +42,8 @@ public class Skills : Subject
         AddAction(EnumsActions.Dash, OnDash);
         AddAction(EnumsActions.Freeze, OnFreeze);
         AddAction(EnumsActions.AvoidEnemies, OnAvoidEnemies);
+        AddAction(EnumsActions.Shield, OnShield);
+        AddAction(EnumsActions.ShieldBroke, OnShieldBroke);
     }
 
     //skills
@@ -46,6 +51,8 @@ public class Skills : Subject
     void OnDash() => _dashCor = GameManager.Instance.RestartCor(_dashCor, DashCor());
     void OnFreeze() => LevelManager.Instance.FreezeEnemies();
     void OnAvoidEnemies() => LevelManager.Instance.ChangeEnemiesDirections();
+    void OnShield() => ToggleShield(true);
+    void OnShieldBroke() => ToggleShield(false);
 
     //cors
     IEnumerator DashCor()
@@ -104,6 +111,8 @@ public class Skills : Subject
     {
         if (cor != null) StopCoroutine(cor);
     }
+
+    void ToggleShield(bool toggle) => ShieldObj.SetActive(toggle);
 
     Coroutine RestartCor(Coroutine cor, IEnumerator to)
     {

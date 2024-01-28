@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
 
     void SetMovementDirection()
     {
-        transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(MovemenetDirection.y, MovemenetDirection.x) * Mathf.Rad2Deg - 90f, Vector3.forward);
+        if (this != null) transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(MovemenetDirection.y, MovemenetDirection.x) * Mathf.Rad2Deg - 90f, Vector3.forward);
     }
 
     //outside methods
@@ -93,12 +93,17 @@ public class Enemy : MonoBehaviour
     //trigger
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 14)
+        switch (collision.gameObject.layer)
         {
-            Observer.Instance.NotifyObservers(EnumsActions.EnemyKilled);
+            case 14:
+                Observer.Instance.NotifyObservers(EnumsActions.EnemyKilled);
 
-            Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-            player.Mutate(Mutation);
+                Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+                player.Mutate(Mutation);
+                break;
+            case 16: Observer.Instance.NotifyObservers(EnumsActions.ShieldBroke); break;
+            case 13: return;
+            default: break;
         }
 
         Destroy(gameObject);

@@ -76,7 +76,7 @@ public class Player : Subject
         _curMovementSpeed = Speed;
 
         _skillsSet.Add(EnumsActions.SlowMo);
-        _skillsSet.Add(EnumsActions.AvoidEnemies);
+        _skillsSet.Add(EnumsActions.Shield);
     }
 
     void Update()
@@ -137,11 +137,20 @@ public class Player : Subject
 
         _skillsSet.Add(mutation.Skill);
         _trailMat.color = _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
-        
+    }
+
+    //trigger
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 10) Observer.Instance.NotifyObservers(EnumsActions.KilledByEnemy);
+        else Observer.Instance.NotifyObservers(EnumsActions.KilledByBounds);
+
+        Die();
     }
 
     public void Die()
     {
-        Observer.Instance.NotifyObservers(EnumsActions.Gameover);
+        Debug.Log("die");
+        //Observer.Instance.NotifyObservers(EnumsActions.Gameover);
     }
 }

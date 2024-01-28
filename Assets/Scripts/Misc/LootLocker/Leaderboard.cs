@@ -23,12 +23,12 @@ public class Leaderboard : SingletonMonobehaviour<Leaderboard>
         {
             if (response.success)
             {
-                Debug.Log("Successfully uploaded score");
+                //Debug.Log("Successfully uploaded score");
                 done = true;
             }
             else
             {
-                Debug.Log("Failed" + response.errorData.message);
+                //Debug.Log("Failed" + response.errorData.message);
                 done = true;
             }
         });

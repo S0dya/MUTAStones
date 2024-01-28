@@ -4,6 +4,9 @@ public enum EnumsActions
     Dash,
     Freeze,
     AvoidEnemies,
+    Shield,
+
+    ShieldBroke,
 
     SkillUsed,
     SkillUsedFailed,
@@ -16,5 +19,7 @@ public enum EnumsActions
 
     EnemyKilled,
 
+    KilledByEnemy,
+    KilledByBounds,
     Gameover,
 }

@@ -14,8 +14,6 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     Transform playerTransf;
     Player player;
 
-    List<Enemy> _allEnemies = new List<Enemy>();
-
     protected override void Awake()
     {
         base.Awake();
@@ -27,11 +25,6 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     void Start()
     {
         StartCoroutine(WavesCor());
-    }
-
-    void Update()
-    {
-        Debug.Log(_allEnemies.Count);
     }
 
     IEnumerator WavesCor()

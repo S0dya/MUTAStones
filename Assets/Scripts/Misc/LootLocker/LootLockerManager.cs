@@ -4,11 +4,10 @@ using UnityEngine;
 using LootLocker.Requests;
 using TMPro;
 
-public class LootLockerManager : MonoBehaviour
+public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
 {
-    public Leaderboard leaderboard;
     public TMP_InputField playerNameInputfield;
-    // Start is called before the first frame update
+
     void Start()
     {
         StartCoroutine(SetupRoutine());
@@ -18,21 +17,17 @@ public class LootLockerManager : MonoBehaviour
     {
         LootLockerSDKManager.SetPlayerName(playerNameInputfield.text, (response) =>
         {
-            if(response.success)
-            {
-                Debug.Log("Succesfully set player name");
-            }
-            else
-            {
-                Debug.Log("Could not set player name");
-            }
+            /*
+            if(response.success) Debug.Log("Succesfully set player name");
+            else Debug.Log("Could not set player name");
+            */
         });
     }
 
     IEnumerator SetupRoutine()
     {
         yield return LoginRoutine();
-        yield return leaderboard.FetchTopHighscoresRoutine();
+        yield return Leaderboard.Instance.FetchTopHighscoresRoutine();
     }
 
     IEnumerator LoginRoutine()
@@ -42,13 +37,13 @@ public class LootLockerManager : MonoBehaviour
         {
             if(response.success)
             {
-                Debug.Log("Player was logged in");
+                //Debug.Log("Player was logged in");
                 PlayerPrefs.SetString("PlayerID", response.player_id.ToString());
                 done = true;
             }
             else
             {
-                Debug.Log("Could not start session");
+                //Debug.Log("Could not start session");
                 done = true;
             }
         });
