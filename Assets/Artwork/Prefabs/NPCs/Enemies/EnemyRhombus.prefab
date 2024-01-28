@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2842436581009387427}
+  - component: {fileID: 2992615973159714452}
   - component: {fileID: 2842436581009387426}
-  - component: {fileID: 5131174539979318178}
   - component: {fileID: 8395405877166365538}
   - component: {fileID: -3974450685604546233}
   m_Layer: 10
-  m_Name: Enemy
+  m_Name: EnemyRhombus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,12 +29,33 @@ Transform:
   m_GameObject: {fileID: 2842436581009387425}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2992615973159714452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2842436581009387425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e92f9d181d4e6d4d8b08df30406bbb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovementSpeed: 20
+  Mutation: {fileID: 11400000, guid: 08424ad5f76ce1346a71a84d3a6ace4c, type: 2}
+  UnFreezeSpeed: 1
+  ChangeDirectionSpeed: 5
+  SpawnBulletsDelay:
+  - 0.2
+  - 1.2
+  SpawnBulletOffset: 0.5
+  BulletPrefab: {fileID: 4823082910353693265, guid: 5555be02dec21d446a09711f59c130ff, type: 3}
 --- !u!212 &2842436581009387426
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -76,8 +97,8 @@ SpriteRenderer:
   m_SortingLayerID: -1302447269
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Color: {r: 0, g: 0.014327049, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,22 +108,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5131174539979318178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2842436581009387425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82ea87c82f37a904d88f1ce20fc53f7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MovementSpeed: 15
-  Mutation: {fileID: 0}
-  UnFreezeSpeed: 1
-  ChangeDirectionSpeed: 5
 --- !u!50 &8395405877166365538
 Rigidbody2D:
   serializedVersion: 4
@@ -141,7 +146,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 0.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

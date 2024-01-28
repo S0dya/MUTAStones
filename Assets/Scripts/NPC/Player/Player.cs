@@ -58,6 +58,9 @@ public class Player : Subject
 
         AddAction(EnumsActions.AttackRestored, CanUseAttack);
         AddAction(EnumsActions.SkillRestored, CanUseSkill);
+
+        AddAction(EnumsActions.IncreaseScale, OnIncreaseScale);
+        AddAction(EnumsActions.DecreaseScale, OnDecreaseScale);
     }
     void AssignInput()
     {
@@ -75,8 +78,7 @@ public class Player : Subject
 
         _curMovementSpeed = Speed;
 
-        _skillsSet.Add(EnumsActions.SlowMo);
-        _skillsSet.Add(EnumsActions.Shield);
+        _skillsSet.Add(EnumsActions.Shooting);
     }
 
     void Update()
@@ -91,11 +93,11 @@ public class Player : Subject
     {
         if (!_canAttack)
         {
-            Observer.Instance.NotifyObservers(EnumsActions.AttackUsedFailed);
+            NotObs(EnumsActions.AttackUsedFailed);
             return;
         }
         
-        Observer.Instance.NotifyObservers(EnumsActions.AttackUsed);
+        NotObs(EnumsActions.AttackUsed);
 
         Vector2 direction = (GetWorldPoint() - (Vector2)transform.position).normalized;
         Instantiate(SlashEffectPrefab, direction * 6 + (Vector2)transform.position, Quaternion.identity, EffectsParent);
@@ -105,13 +107,13 @@ public class Player : Subject
     {
         if (!_canUseSkill)
         {
-            Observer.Instance.NotifyObservers(EnumsActions.SkillUsedFailed);
+            NotObs(EnumsActions.SkillUsedFailed);
             return;
         }
 
-        Observer.Instance.NotifyObservers(EnumsActions.SkillUsed);
+        NotObs(EnumsActions.SkillUsed);
 
-        foreach (var skill in _skillsSet) Observer.Instance.NotifyObservers(skill);
+        foreach (var skill in _skillsSet) NotObs(skill);
     }
     
     void OnEscape()
@@ -125,6 +127,10 @@ public class Player : Subject
     void CanUseAttack() => _canAttack = true;
     void CanUseSkill() => _canUseSkill = true;
 
+    void OnIncreaseScale() => transform.localScale += new Vector3(0.1f, 0.1f, 0);
+    void OnDecreaseScale() => transform.localScale = Vector3.one;
+
+
     //other methods
     Vector2 GetWorldPoint()
     {
@@ -133,17 +139,24 @@ public class Player : Subject
 
     public void Mutate(SO_Mutation mutation)
     {
-        if (_skillsSet.Contains(mutation.Skill)) return;
+        _trailMat.color = _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
+        if (transform.localScale.x < 2) NotObs(EnumsActions.IncreaseScale);
 
         _skillsSet.Add(mutation.Skill);
-        _trailMat.color = _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
     }
+
+    void NotObs(EnumsActions enumAction) => Observer.Instance.NotifyObservers(enumAction);
 
     //trigger
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 10) Observer.Instance.NotifyObservers(EnumsActions.KilledByEnemy);
-        else Observer.Instance.NotifyObservers(EnumsActions.KilledByBounds);
+        switch (collision.gameObject.layer)
+        {
+            case 10: NotObs(EnumsActions.KilledByEnemy); break;
+            case 7: NotObs(EnumsActions.KilledByBounds); break;
+            case 20: NotObs(EnumsActions.KilledByBullet); break;
+            default: break;
+        }
 
         Die();
     }
@@ -151,6 +164,6 @@ public class Player : Subject
     public void Die()
     {
         Debug.Log("die");
-        //Observer.Instance.NotifyObservers(EnumsActions.Gameover);
+        //NotObs(EnumsActions.Gameover);
     }
 }

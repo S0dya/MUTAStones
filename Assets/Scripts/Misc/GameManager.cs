@@ -10,6 +10,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     //local
     Player player;
+    Transform EffectsParent;
 
     protected override void Awake()
     {
@@ -17,6 +18,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         GameData = new GameData();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        EffectsParent = GameObject.FindGameObjectWithTag("EffectsParent").transform;
     }
 
 
@@ -30,4 +32,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         return player.transform.position;
     }
+
+    public void Shoot(GameObject bulletPrefab, Vector2 pos, Quaternion rotation) => Instantiate(bulletPrefab, pos, rotation, EffectsParent);
 }

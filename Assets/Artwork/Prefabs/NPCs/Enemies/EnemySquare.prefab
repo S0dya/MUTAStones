@@ -21,15 +21,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
     - target: {fileID: 2842436581009387426, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2842436581009387426, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_Color.g
-      value: 0.014327049
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2842436581009387426, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.15938342
       objectReference: {fileID: 0}
     - target: {fileID: 2842436581009387427, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_RootOrder
@@ -37,11 +37,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2842436581009387427, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2842436581009387427, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2842436581009387427, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -91,5 +91,18 @@ PrefabInstance:
       propertyPath: MovementSpeed
       value: 15
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5131174539979318178, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
+      propertyPath: Mutation
+      value: 
+      objectReference: {fileID: 11400000, guid: db81caf3977a3c149b2888b7c23cdf79, type: 2}
+    - target: {fileID: 5131174539979318178, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
+      propertyPath: MovementSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131174539979318178, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
+      propertyPath: UnFreezeSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2842436581009387436, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}

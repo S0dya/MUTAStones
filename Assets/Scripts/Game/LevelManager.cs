@@ -11,15 +11,23 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     [SerializeField] Transform enemiesParent;
 
     [Header("enemies prefabs")]
-    [SerializeField] GameObject[] enemiesPrefabs;
-    [SerializeField] GameObject TriangleEnemyPrefab;
-    [SerializeField] GameObject SquareEnemyPrefab;
-
-
+    [SerializeField] EnemyClass[] EnemiesClasses;
 
     //local
     Transform playerTransf;
     Player player;
+
+    //waves
+    int _amountOfDifferentEnemies = 2;
+    float _spawnDelay = 1;
+
+    //threshold 
+    EnemyClass _curEnemyClass;
+    Vector2 _curEnemyPos;
+    Transform _curEnemyTrasnf;
+    Enemy _curEnemy;
+
+    int _maxDifferentEnemiesAmount;
 
     protected override void Awake()
     {
@@ -31,6 +39,8 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
 
     void Start()
     {
+        _maxDifferentEnemiesAmount = EnemiesClasses.Length;
+
         StartCoroutine(WavesCor());
     }
 
@@ -38,13 +48,33 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     {
         while (true)
         {
-            Transform enemyTrasnf = InstantiateEnemy(enemiesPrefabs[Random.Range(0, 1)], GetRandomOffsetPos(SpawnOffset[0], SpawnOffset[1], 1));
-            Enemy enemyScript = enemyTrasnf.GetComponent<Enemy>();
-            enemyScript.MovemenetDirection = (playerTransf.position - enemyScript.transform.position).normalized;
+            _curEnemyClass = EnemiesClasses[Random.Range(0, _amountOfDifferentEnemies)];
 
-            yield return new WaitForSeconds(1);
+            switch (_curEnemyClass.SpawnEnum)
+            {
+                case EnumsEnemySpawn.SpawnsByXAndY: _curEnemyPos = GetRandomOffsetPos(); break;
+                case EnumsEnemySpawn.SpawnsByX: _curEnemyPos = GetRandomOffsetPosByX(); break;
+                case EnumsEnemySpawn.SpawnsByY: _curEnemyPos = GetRandomOffsetPosByY(); break;
+                default: break;
+            }
+
+            _curEnemyTrasnf = InstantiateEnemy(_curEnemyClass.EnemyPrefab, _curEnemyPos);
+            _curEnemy = _curEnemyTrasnf.GetComponent<Enemy>();
+            _curEnemy.MovemenetDirection = (playerTransf.position - _curEnemyTrasnf.position).normalized;
+
+            yield return new WaitForSeconds(_spawnDelay);
         }
     }
+
+
+    //outside methods
+    public void IncreaseEnemiesAmount()
+    {
+        if (_amountOfDifferentEnemies == _maxDifferentEnemiesAmount) return;
+
+        _amountOfDifferentEnemies++;
+    }
+    public void DecreaseSpawnDelay() => _spawnDelay *= 0.8f;
 
 
     //other methods
@@ -66,6 +96,19 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     {
         return Random.Range(0, 2) == 1 ? new Vector2(Random.Range(-x, x), Random.Range(y, y + offset)) 
             : new Vector2(Random.Range(-x, x), Random.Range(-y - offset, -y));
+    }
+
+    Vector2 GetRandomOffsetPos()
+    {
+        return GetRandomOffsetPos(SpawnOffset[0], SpawnOffset[1], 1);
+    }
+    Vector2 GetRandomOffsetPosByX()
+    {
+        return GetRandomOffsetPosByX(SpawnOffset[0], SpawnOffset[1], 1);
+    }
+    Vector2 GetRandomOffsetPosByY()
+    {
+        return GetRandomOffsetPosByY(SpawnOffset[0], SpawnOffset[1], 1);
     }
 
     public void FreezeEnemies() => LoopThroughtEnemiesTransforms(enemiesParent, FreezeEnemy);

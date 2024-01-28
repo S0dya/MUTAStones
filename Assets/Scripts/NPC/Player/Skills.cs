@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Skills : Subject
 {
-    [Header("skills settings")]
+    [Header("slow motion")]
     [Range(0.1f, 0.9f)] public float SlowMoValue;
     public float SlowMoDuration;
     public float SlowMoSpeed;
 
+    [Header("dash")]
     public float DashSpeed;
 
-    [Header("other skills variables")]
+    [Header("shooting")]
+    public float ShootingDelay = 0.5f;
+    [SerializeField] GameObject BulletPrefab;
+
+    [Header("shield")]
     [SerializeField] GameObject ShieldObj;
 
     //local
@@ -31,6 +36,7 @@ public class Skills : Subject
     //cors
     Coroutine _slowMoCor;
     Coroutine _dashCor;
+    Coroutine _shootingCor;
 
     protected override void Awake()
     {
@@ -44,6 +50,7 @@ public class Skills : Subject
         AddAction(EnumsActions.AvoidEnemies, OnAvoidEnemies);
         AddAction(EnumsActions.Shield, OnShield);
         AddAction(EnumsActions.ShieldBroke, OnShieldBroke);
+        AddAction(EnumsActions.Shooting, OnShooting);
     }
 
     //skills
@@ -53,6 +60,7 @@ public class Skills : Subject
     void OnAvoidEnemies() => LevelManager.Instance.ChangeEnemiesDirections();
     void OnShield() => ToggleShield(true);
     void OnShieldBroke() => ToggleShield(false);
+    void OnShooting() => _shootingCor = GameManager.Instance.RestartCor(_slowMoCor, SlowMoCor());
 
     //cors
     IEnumerator DashCor()
@@ -95,6 +103,17 @@ public class Skills : Subject
         }
         Time.timeScale = 1;
     }
+
+    IEnumerator ShootingCor()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            Shoot(-90); Shoot(90);
+
+            yield return new WaitForSeconds(ShootingDelay);
+        }
+    }
+    void Shoot(float rotation) => GameManager.Instance.Shoot(BulletPrefab, transform.position, Quaternion.Euler(0, 0, transform.eulerAngles.z + rotation));
 
     //other methods
     bool IsValBigger(float firstVal, float secondVal, float offset)

@@ -51,6 +51,8 @@ public class UIInGame : Subject
             _curMilisecs -= 1000;
             _curSecs++;
             _timeStrings[1] = GetStringFromTime(_curSecs);
+
+            if (_curSecs == 30) LevelManager.Instance.IncreaseEnemiesAmount();
         }
 
         if (_curSecs >= 60)
@@ -58,6 +60,8 @@ public class UIInGame : Subject
             _curSecs -= 60;
             _curMins++;
             _timeStrings[0] = GetStringFromTime(_curMins);
+
+            LevelManager.Instance.DecreaseSpawnDelay();
         }
 
         TimerText.text = string.Join(':', _timeStrings);

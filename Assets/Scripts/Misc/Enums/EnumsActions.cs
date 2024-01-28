@@ -5,6 +5,7 @@ public enum EnumsActions
     Freeze,
     AvoidEnemies,
     Shield,
+    Shooting,
 
     ShieldBroke,
 
@@ -21,5 +22,9 @@ public enum EnumsActions
 
     KilledByEnemy,
     KilledByBounds,
+    KilledByBullet,
     Gameover,
+
+    IncreaseScale,
+    DecreaseScale,
 }

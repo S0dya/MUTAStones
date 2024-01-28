@@ -312,10 +312,14 @@ MonoBehaviour:
   SpawnOffset:
   - 40
   - 25
-  enemiesPrefabs:
-  - {fileID: 5516757653718932005, guid: f32d75c45b5e0c84ca87c0cfabc63ec9, type: 3}
-  - {fileID: 5516757653718932005, guid: f32d75c45b5e0c84ca87c0cfabc63ec9, type: 3}
   enemiesParent: {fileID: 17210300}
+  EnemiesClasses:
+  - EnemyPrefab: {fileID: 2842436581009387425, guid: 73dcd53a48b7bc54bbced7e2d6dade5b, type: 3}
+    SpawnEnum: 0
+  - EnemyPrefab: {fileID: 5516757653718932005, guid: 172ba8e4e66f55c4aab910c8699d0faf, type: 3}
+    SpawnEnum: 1
+  - EnemyPrefab: {fileID: 5516757653718932005, guid: 9f587599b86db164eb1dd505124815cd, type: 3}
+    SpawnEnum: 2
 --- !u!1 &69983059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,7 +1768,7 @@ GameObject:
   - component: {fileID: 1290952800}
   m_Layer: 0
   m_Name: EffectsParent
-  m_TagString: Untagged
+  m_TagString: EffectsParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2188,63 +2192,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
---- !u!1001 &1611045618
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5113594176067235209, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_Name
-      value: SlashEffect
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113594176067235212, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2598b2d7665502b4bb5ea684a9b0f979, type: 3}
 --- !u!1 &1680808110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2746,5 +2693,9 @@ PrefabInstance:
       propertyPath: EffectsParent
       value: 
       objectReference: {fileID: 1290952800}
+    - target: {fileID: 6389440951310454406, guid: 87b33302af882214a815ad7af8524034, type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 4823082910353693265, guid: 866f7f3dd68bb32418454aa34cf487c0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87b33302af882214a815ad7af8524034, type: 3}
