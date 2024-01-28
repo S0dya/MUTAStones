@@ -15,4 +15,6 @@ public enum EnumsActions
     SkillRestored,
 
     EnemyKilled,
+
+    Gameover,
 }

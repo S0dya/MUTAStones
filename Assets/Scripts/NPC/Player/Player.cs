@@ -116,6 +116,7 @@ public class Player : Subject
     
     void OnEscape()
     {
+        Die();
     }
 
     //actions
@@ -137,5 +138,10 @@ public class Player : Subject
         _skillsSet.Add(mutation.Skill);
         _trailMat.color = _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
         
+    }
+
+    public void Die()
+    {
+        Observer.Instance.NotifyObservers(EnumsActions.Gameover);
     }
 }

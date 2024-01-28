@@ -31,6 +31,8 @@ public class UIInGame : Subject
 
         AddAction(EnumsActions.AttackUsed, OnAttackUsed);
         AddAction(EnumsActions.SkillUsed, OnSkillUsed);
+
+        AddAction(EnumsActions.Gameover, OnGameover);
     }
 
     void Update()
@@ -62,14 +64,12 @@ public class UIInGame : Subject
     }
 
     //actions
-    void OnAttackUsed()
-    {
-        StartCoroutine(DelayCor(AttackDelayImage, GameManager.Instance.GameData.AttackDelayDuration, EnumsActions.AttackRestored));
-    }
+    void OnAttackUsed() => StartCoroutine(DelayCor(AttackDelayImage, GameManager.Instance.GameData.AttackDelayDuration, EnumsActions.AttackRestored));
+    void OnSkillUsed() => StartCoroutine(DelayCor(SkillDelayImage, GameManager.Instance.GameData.SkillDelayDuration, EnumsActions.SkillRestored));
 
-    void OnSkillUsed()
+    void OnGameover()
     {
-        StartCoroutine(DelayCor(SkillDelayImage, GameManager.Instance.GameData.SkillDelayDuration, EnumsActions.SkillRestored));
+        Leaderboard.Instance.SubmitScore((int)(_curMins * 60 + _curSecs + _curMilisecs / 1000));
     }
 
     //cors

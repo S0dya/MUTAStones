@@ -57,14 +57,8 @@ public class Enemy : MonoBehaviour
     }
 
     //outside methods
-    public void Freeze()
-    {
-        _freezeCor = GameManager.Instance.RestartCor(_freezeCor, FreezeCor());
-    }
-    public void ChangeDirection()
-    {
-        _changeDirectionCor = GameManager.Instance.RestartCor(_changeDirectionCor, ChangeDirectionCor());
-    }
+    public void Freeze() => _freezeCor = GameManager.Instance.RestartCor(_freezeCor, FreezeCor());
+    public void ChangeDirection() => _changeDirectionCor = GameManager.Instance.RestartCor(_changeDirectionCor, ChangeDirectionCor());
 
     //cors
     IEnumerator FreezeCor()
