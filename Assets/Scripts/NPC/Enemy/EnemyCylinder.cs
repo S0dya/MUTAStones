@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRhombus : Enemy
+public class EnemyCylinder : Enemy
 {
     [Header("parameters")]
     public float[] SpawnBulletsDelay = new float[2];

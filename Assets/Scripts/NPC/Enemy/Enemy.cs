@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
 
     Vector2 _movementDirection;
 
+    [HideInInspector] public bool _isChangingDirection;
+
     public Vector2 MovemenetDirection
     {
         get { return _movementDirection; }
@@ -58,7 +60,12 @@ public class Enemy : MonoBehaviour
 
     //outside methods
     public void Freeze() => _freezeCor = GameManager.Instance.RestartCor(_freezeCor, FreezeCor());
-    public void ChangeDirection() => _changeDirectionCor = GameManager.Instance.RestartCor(_changeDirectionCor, ChangeDirectionCor());
+    public void ChangeDirection()
+    {
+        _isChangingDirection = true;
+
+        _changeDirectionCor = GameManager.Instance.RestartCor(_changeDirectionCor, ChangeDirectionCor());
+    }
 
     //cors
     IEnumerator FreezeCor()
@@ -89,7 +96,7 @@ public class Enemy : MonoBehaviour
     }
 
     //trigger
-    void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.gameObject.layer)
         {

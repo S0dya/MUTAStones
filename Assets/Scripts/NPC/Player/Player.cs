@@ -7,6 +7,7 @@ public class Player : Subject
 {
     [Header("Settings")]
     public float Speed;
+    public float MaxFreezeDistance;
 
     [Header("effects")]
     [SerializeField] GameObject SlashEffectPrefab;
@@ -24,12 +25,11 @@ public class Player : Subject
 
     Material _trailMat;
 
-
     Vector2 _curMousePos;
     Vector2 _curClampedMousePos;
 
     [HideInInspector] public float _curMovementSpeed;
-
+    [HideInInspector] public float _freezeVal;
 
     //abilities
     HashSet<EnumsActions> _skillsSet = new HashSet<EnumsActions>();
@@ -77,6 +77,7 @@ public class Player : Subject
         base.Start();
 
         _curMovementSpeed = Speed;
+        _freezeVal = 1;
 
         _skillsSet.Add(EnumsActions.Shooting);
     }
@@ -85,7 +86,8 @@ public class Player : Subject
     {
         _curMousePos = Mouse.current.position.ReadValue();
         _curClampedMousePos = new Vector2(Mathf.Clamp(_curMousePos.x, 0f, Screen.width),Mathf.Clamp(_curMousePos.y, 0f, Screen.height));
-        transform.position = Vector2.Lerp(transform.position, GetWorldPoint(), _curMovementSpeed * Time.deltaTime);
+
+        transform.position = Vector2.Lerp(transform.position, GetWorldPoint(), _curMovementSpeed * _freezeVal * Time.deltaTime);
     }
 
     //input
@@ -130,6 +132,16 @@ public class Player : Subject
     void OnIncreaseScale() => transform.localScale += new Vector3(0.1f, 0.1f, 0);
     void OnDecreaseScale() => transform.localScale = Vector3.one;
 
+    //outside methods
+    public void SetFreezeVal(float distance)
+    {
+
+        _freezeVal = Mathf.Clamp01(distance / MaxFreezeDistance);
+
+        Debug.Log(distance + "   " + _freezeVal);
+
+    }
+    public void ResetFreezeVal() => _freezeVal = 1;
 
     //other methods
     Vector2 GetWorldPoint()
@@ -148,11 +160,11 @@ public class Player : Subject
     void NotObs(EnumsActions enumAction) => Observer.Instance.NotifyObservers(enumAction);
 
     //trigger
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.gameObject.layer)
         {
-            case 10: NotObs(EnumsActions.KilledByEnemy); break;
+            case 10: case 11: NotObs(EnumsActions.KilledByEnemy); break;
             case 7: NotObs(EnumsActions.KilledByBounds); break;
             case 20: NotObs(EnumsActions.KilledByBullet); break;
             default: break;

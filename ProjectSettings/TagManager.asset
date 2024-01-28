@@ -17,11 +17,11 @@ TagManager:
   - EnemyLevelBounds
   - 
   - Enemy
-  - 
+  - EnemyFreezing
   - 
   - Player
   - Attack
-  - 
+  - FreezeTrigger
   - Shield
   - 
   - 
