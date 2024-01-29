@@ -61,8 +61,16 @@ public class Skills : Subject
     void OnDash() => _dashCor = GameManager.Instance.RestartCor(_dashCor, DashCor());
     void OnFreeze() => LevelManager.Instance.FreezeEnemies();
     void OnAvoidEnemies() => LevelManager.Instance.ChangeEnemiesDirections();
-    void OnShield() => ToggleShield(true);
-    void OnShieldBroke() => ToggleShield(false);
+    void OnShield()
+    {
+        Observer.Instance.NotifyObservers(EnumsActions.ShieldActivate);
+        ToggleShield(true);
+    }
+    void OnShieldBroke()
+    {
+        ToggleShield(false);
+        Observer.Instance.NotifyObservers(EnumsActions.ShieldDeactivate);
+    }
     void OnShooting() => _shootingCor = GameManager.Instance.RestartCor(_shootingCor, ShootingCor());
 
     void OnEscape()

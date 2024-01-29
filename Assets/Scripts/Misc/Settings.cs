@@ -11,5 +11,5 @@ public static class Settings
     
     public static float[] musicStats = new float[2] { 1, 1 };
 
-    public static string PlayerID;
+    public static string PlayerID = "asd";
 }

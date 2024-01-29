@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using FMODUnity;
 
 public class UIGameMenu : Subject
 {
     [SerializeField] CanvasGroup CgMenu;
     [SerializeField] CanvasGroup CgGameover;
+
+    [SerializeField] CanvasGroup CgMusic;
+
+    [SerializeField] TextMeshProUGUI ScoreText;
+
+    [SerializeField] StudioEventEmitter EventEmmiter;
 
 
     //local
@@ -26,6 +33,10 @@ public class UIGameMenu : Subject
         AddAction(EnumsActions.Gameover, OnGameover);
     }
 
+    void Start()
+    {
+        ToggleMusicCG();
+    }
 
     //buttons
     public void OnResumeButton()
@@ -40,7 +51,8 @@ public class UIGameMenu : Subject
 
     public void OnToggleMusicButton()
     {
-
+        AudioManager.Instance.ToggleMusic(!Settings.isMusicOn);
+        ToggleMusicCG();
     }
 
     //buttons gameover
@@ -60,6 +72,8 @@ public class UIGameMenu : Subject
 
     void OnGameover()
     {
+        EventEmmiter.Stop();
+        StartCoroutine(SetScoreCor());
         _isGameoverOpened = true;
      
         TogglePanel(CgGameover, true);
@@ -81,4 +95,15 @@ public class UIGameMenu : Subject
         cg.blocksRaycasts = toggle;
     }
 
+    void ToggleMusicCG()
+    {
+        CgMusic.alpha = Settings.isMusicOn ? 1 : 0.6f;
+    }
+
+    IEnumerator SetScoreCor()
+    {
+        yield return null;
+
+        ScoreText.text = GameManager.Instance.GameData.Score.ToString();
+    }
 }

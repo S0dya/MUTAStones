@@ -6,25 +6,44 @@ using TMPro;
 
 public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
 {
+    [SerializeField] CanvasGroup CgField;
     public TMP_InputField playerNameInputfield;
     string leaderboardID = "19971";
+
+    void Start()
+    {
+        if (Settings.PlayerID != null)
+        {
+            OpenGame();
+        }
+    }
 
     public void SetPlayerName()
     {
         LootLockerSDKManager.SetPlayerName(playerNameInputfield.text, (response) =>
         {
-            /*
-            if(response.success) Debug.Log("Succesfully set player name");
+            if (response.success)
+            {
+                Settings.PlayerID = playerNameInputfield.text;
+                Debug.Log("Succesfully set player name");
+            }
             else Debug.Log("Could not set player name");
-            */
         });
+
+        OpenGame();
+    }
+
+    void OpenGame()
+    {
+        LoadingScene.Instance.LoadMenu();
+        CgField.alpha = 0;
+        CgField.blocksRaycasts = false;
     }
 
     public void Setup()
     {
         StartCoroutine(SetupRoutine());
     }
-
 
     IEnumerator SetupRoutine()
     {

@@ -21,7 +21,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         EffectsParent = GameObject.FindGameObjectWithTag("EffectsParent").transform;
     }
 
-
     public Coroutine RestartCor(Coroutine cor, IEnumerator enumerator)
     {
         if (cor != null) StopCoroutine(cor);

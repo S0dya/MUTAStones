@@ -13,32 +13,29 @@ public class LoadingScene : SingletonMonobehaviour<LoadingScene>
     [SerializeField] GameObject LoadingScreen;
     [SerializeField] Image LoadingBarFill;
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        //StartCoroutine(LoadMenu());
-    }
-
     //outside methods
+    public void LoadMenu()
+    {        
+        StartCoroutine(LoadMenuCor());
+    }
     public void OpenMenu(int sceneToClose)
     {
         SceneManager.UnloadSceneAsync(sceneToClose);
-        StartCoroutine(LoadMenu());
+        LoadMenu();
     }
     public void OpenMenu() => OpenMenu(Settings.curSceneId);
 
     public void OpenScene(int sceneToOpen)
     {
-        StartCoroutine(LoadScene(sceneToOpen, 1));
+        StartCoroutine(LoadSceneCor(sceneToOpen, 1));
     }
     public void OpenScene(int sceneToOpen, int sceneToClose)
     {
-        StartCoroutine(LoadScene(sceneToOpen, sceneToClose));
+        StartCoroutine(LoadSceneCor(sceneToOpen, sceneToClose));
     }
 
     //main cors
-    IEnumerator LoadMenu()
+    IEnumerator LoadMenuCor()
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
 
@@ -54,7 +51,7 @@ public class LoadingScene : SingletonMonobehaviour<LoadingScene>
         ToggleLoadingScreen(false);
     }
 
-    IEnumerator LoadScene(int sceneToOpen, int sceneToClose)
+    IEnumerator LoadSceneCor(int sceneToOpen, int sceneToClose)
     {
         SceneManager.UnloadSceneAsync(sceneToClose);
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToOpen, LoadSceneMode.Additive);

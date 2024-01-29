@@ -38,6 +38,8 @@ public class Player : Subject
     bool _canAttack = true;
     bool _canUseSkill = true;
 
+    bool _isShieldOn;
+
 
     protected override void Awake()
     {
@@ -57,6 +59,9 @@ public class Player : Subject
 
         AddAction(EnumsActions.AttackRestored, CanUseAttack);
         AddAction(EnumsActions.SkillRestored, CanUseSkill);
+
+        AddAction(EnumsActions.ShieldActivate, OnShieldActivate);
+        AddAction(EnumsActions.ShieldDeactivate, OnShieldDeactivate);
 
         AddAction(EnumsActions.IncreaseScale, OnIncreaseScale);
         AddAction(EnumsActions.DecreaseScale, OnDecreaseScale);
@@ -90,8 +95,6 @@ public class Player : Subject
     {
         _curMovementSpeed = Speed;
         _freezeVal = 1;
-
-        _skillsSet.Add(EnumsActions.SlowMo);
     }
 
     void Update()
@@ -141,6 +144,9 @@ public class Player : Subject
     void CanUseAttack() => _canAttack = true;
     void CanUseSkill() => _canUseSkill = true;
 
+    void OnShieldActivate() => _isShieldOn = true;
+    void OnShieldDeactivate() => StartCoroutine(ToggleShieldCor());
+
     void OnIncreaseScale() => transform.localScale += new Vector3(0.1f, 0.1f, 0);
     void OnDecreaseScale() => transform.localScale = Vector3.one;
 
@@ -163,6 +169,8 @@ public class Player : Subject
         _trailMat.color = _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
         if (transform.localScale.x < 2) NotObs(EnumsActions.IncreaseScale);
 
+        GameManager.Instance.GameData.MutationsAmount++;
+
         _skillsSet.Add(mutation.Skill);
     }
     
@@ -174,9 +182,18 @@ public class Player : Subject
 
     void NotObs(EnumsActions enumAction) => Observer.Instance.NotifyObservers(enumAction);
 
+    IEnumerator ToggleShieldCor()
+    {
+        yield return null;
+
+        _isShieldOn = false;
+    }
+
     //trigger
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_isShieldOn) return;
+
         switch (collision.gameObject.layer)
         {
             case 10: NotObs(EnumsActions.KilledByEnemy); break;

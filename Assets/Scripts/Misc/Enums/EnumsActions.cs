@@ -18,6 +18,9 @@ public enum EnumsActions
     AttackRestored,
     SkillRestored,
 
+    ShieldActivate,
+    ShieldDeactivate,
+
     EnemyKilled,
 
     KilledByEnemy,

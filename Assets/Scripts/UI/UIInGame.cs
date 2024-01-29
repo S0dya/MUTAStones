@@ -82,7 +82,11 @@ public class UIInGame : Subject
 
     void OnGameover()
     {
-        LootLockerManager.Instance.SubmitScore((int)(_curMins * 60 + _curSecs + _curMilisecs / 1000));
+        int score = (int)(_curMins * 60 + _curSecs + _curMilisecs / 1000 * GameManager.Instance.GameData.MutationsAmount);
+
+        GameManager.Instance.GameData.Score = score;
+
+        LootLockerManager.Instance.SubmitScore(score);
     }
 
     //cors
