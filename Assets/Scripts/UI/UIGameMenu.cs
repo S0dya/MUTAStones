@@ -14,7 +14,7 @@ public class UIGameMenu : Subject
     //float _lastTime;
 
     bool _isMenuOpened;
-
+    bool _isGameoverOpened;
 
 
     protected override void Awake()
@@ -30,7 +30,7 @@ public class UIGameMenu : Subject
     //buttons
     public void OnResumeButton()
     {
-        CloseMenu();
+        TogglePanel(CgMenu, false);
     }
 
     public void OnQuitButton()
@@ -52,36 +52,25 @@ public class UIGameMenu : Subject
     //actions
     void OnEscape()
     {
-        if (_isMenuOpened) CloseMenu();
-        else OpenMenu();
+        if (_isGameoverOpened) return;
+
+        if (_isMenuOpened) TogglePanel(CgMenu, false);
+        else TogglePanel(CgMenu, true);
     }
 
     void OnGameover()
     {
+        _isGameoverOpened = true;
+     
         TogglePanel(CgGameover, true);
     }
 
     //main methods
-    void OpenMenu()
-    {
-        _isMenuOpened = true;
-
-        TogglePanel(CgMenu, true);
-    }
-    void CloseMenu()
-    {
-        _isMenuOpened = false;
-
-        TogglePanel(CgMenu, false);
-    }
-
-    
-
     void TogglePanel(CanvasGroup cg, bool toggle)
     {
-        Time.timeScale = toggle ? 1 : 0;
-
-        ToggleCG(cg, true);
+        _isMenuOpened = toggle;
+        Time.timeScale = !toggle ? 1 : 0;
+        ToggleCG(cg, toggle);
     }
 
 

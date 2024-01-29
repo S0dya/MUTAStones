@@ -65,6 +65,8 @@ public class Player : Subject
 
     protected override void OnEnable()
     {
+        base.OnEnable();
+
         _input = new Inputs();
         _input.Main.Enable();
 
@@ -177,10 +179,10 @@ public class Player : Subject
     {
         switch (collision.gameObject.layer)
         {
-            case 10: case 11: NotObs(EnumsActions.KilledByEnemy); break;
+            case 10: NotObs(EnumsActions.KilledByEnemy); break;
             case 7: NotObs(EnumsActions.KilledByBounds); break;
             case 20: NotObs(EnumsActions.KilledByBullet); break;
-            default: break;
+            default: return;
         }
 
         Die();

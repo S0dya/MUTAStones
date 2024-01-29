@@ -82,7 +82,7 @@ public class UIInGame : Subject
 
     void OnGameover()
     {
-        Leaderboard.Instance.SubmitScore((int)(_curMins * 60 + _curSecs + _curMilisecs / 1000));
+        LootLockerManager.Instance.SubmitScore((int)(_curMins * 60 + _curSecs + _curMilisecs / 1000));
     }
 
     //cors

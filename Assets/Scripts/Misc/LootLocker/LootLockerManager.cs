@@ -7,11 +7,7 @@ using TMPro;
 public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
 {
     public TMP_InputField playerNameInputfield;
-
-    void Start()
-    {
-        StartCoroutine(SetupRoutine());
-    }
+    string leaderboardID = "19971";
 
     public void SetPlayerName()
     {
@@ -23,6 +19,12 @@ public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
             */
         });
     }
+
+    public void Setup()
+    {
+        StartCoroutine(SetupRoutine());
+    }
+
 
     IEnumerator SetupRoutine()
     {
@@ -44,6 +46,32 @@ public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
             else
             {
                 //Debug.Log("Could not start session");
+                done = true;
+            }
+        });
+        yield return new WaitWhile(() => done == false);
+    }
+
+
+    public void SubmitScore(int score)
+    {
+        StartCoroutine(SubmitScoreRoutine(score));
+    }
+
+    IEnumerator SubmitScoreRoutine(int scoreToUpload)
+    {
+        bool done = false;
+        string playerID = PlayerPrefs.GetString("PlayerID");
+        LootLockerSDKManager.SubmitScore(playerID, scoreToUpload, leaderboardID, (response) =>
+        {
+            if (response.success)
+            {
+                //Debug.Log("Successfully uploaded score");
+                done = true;
+            }
+            else
+            {
+                //Debug.Log("Failed" + response.errorData.message);
                 done = true;
             }
         });

@@ -10,29 +10,10 @@ public class Leaderboard : SingletonMonobehaviour<Leaderboard>
     public TextMeshProUGUI playerNames;
     public TextMeshProUGUI playerScores;
 
-    public void SubmitScore(int score)
-    {
-        StartCoroutine(SubmitScoreRoutine(score));
-    }
 
-    IEnumerator SubmitScoreRoutine(int scoreToUpload)
+    void Start()
     {
-        bool done = false;
-        string playerID = PlayerPrefs.GetString("PlayerID");
-        LootLockerSDKManager.SubmitScore(playerID, scoreToUpload, leaderboardID, (response) =>
-        {
-            if (response.success)
-            {
-                //Debug.Log("Successfully uploaded score");
-                done = true;
-            }
-            else
-            {
-                //Debug.Log("Failed" + response.errorData.message);
-                done = true;
-            }
-        });
-        yield return new WaitWhile(() => done == false);
+        LootLockerManager.Instance.Setup();
     }
 
     public IEnumerator FetchTopHighscoresRoutine()

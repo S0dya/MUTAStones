@@ -30,12 +30,11 @@ public class LoadingScene : SingletonMonobehaviour<LoadingScene>
 
     public void OpenScene(int sceneToOpen)
     {
-        StartCoroutine(LoadGame(sceneToOpen));
+        StartCoroutine(LoadScene(sceneToOpen, 1));
     }
     public void OpenScene(int sceneToOpen, int sceneToClose)
     {
-        SceneManager.UnloadSceneAsync(sceneToClose);
-        StartCoroutine(LoadGame(sceneToOpen));
+        StartCoroutine(LoadScene(sceneToOpen, sceneToClose));
     }
 
     //main cors
@@ -55,9 +54,9 @@ public class LoadingScene : SingletonMonobehaviour<LoadingScene>
         ToggleLoadingScreen(false);
     }
 
-    IEnumerator LoadGame(int sceneToOpen)
+    IEnumerator LoadScene(int sceneToOpen, int sceneToClose)
     {
-        SceneManager.UnloadSceneAsync(1);
+        SceneManager.UnloadSceneAsync(sceneToClose);
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToOpen, LoadSceneMode.Additive);
 
         ToggleLoadingScreen(true);

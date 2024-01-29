@@ -33,8 +33,6 @@ public class Subject : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        Debug.Log("1");
-
         Observer.Instance.RemoveObserver(this);
     }
 
