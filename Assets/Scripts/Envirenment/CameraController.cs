@@ -25,10 +25,8 @@ public class CameraController : Subject
         Vcam = GetComponent<CinemachineVirtualCamera>();
     }
 
-    protected override void Start()
+    void Start()
     {
-        base.Start();
-
         _curSize = MaxSize;
 
         StartCoroutine(RhytmCameraCor());

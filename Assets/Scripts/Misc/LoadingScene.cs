@@ -9,6 +9,7 @@ using System.Linq;
 
 public class LoadingScene : SingletonMonobehaviour<LoadingScene>
 {
+    [SerializeField] Camera LoadingCamera;
     [SerializeField] GameObject LoadingScreen;
     [SerializeField] Image LoadingBarFill;
 
@@ -29,6 +30,11 @@ public class LoadingScene : SingletonMonobehaviour<LoadingScene>
 
     public void OpenScene(int sceneToOpen)
     {
+        StartCoroutine(LoadGame(sceneToOpen));
+    }
+    public void OpenScene(int sceneToOpen, int sceneToClose)
+    {
+        SceneManager.UnloadSceneAsync(sceneToClose);
         StartCoroutine(LoadGame(sceneToOpen));
     }
 
@@ -67,6 +73,10 @@ public class LoadingScene : SingletonMonobehaviour<LoadingScene>
     }
 
     //other methods
-    void ToggleLoadingScreen(bool toggle) => LoadingScreen.SetActive(toggle);
+    void ToggleLoadingScreen(bool toggle)
+    {
+        LoadingCamera.enabled = toggle;
+        LoadingScreen.SetActive(toggle);
+    }
     void SetFillAmount(float progress) => LoadingBarFill.fillAmount = Mathf.Clamp01(progress / 0.9f);
 }

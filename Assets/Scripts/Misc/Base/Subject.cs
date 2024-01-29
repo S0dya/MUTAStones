@@ -26,13 +26,15 @@ public class Subject : MonoBehaviour
 
     }
 
-    protected virtual void Start()
+    protected virtual void OnEnable()
     {
         Observer.Instance.AddObserver(this);
     }
 
-    protected virtual void OnDestroy()
+    protected virtual void OnDisable()
     {
+        Debug.Log("1");
+
         Observer.Instance.RemoveObserver(this);
     }
 

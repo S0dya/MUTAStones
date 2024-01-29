@@ -49,7 +49,6 @@ public class Player : Subject
         _trailMat = Trail.material;
 
         AssignActions();
-        AssignInput();
     }
     void AssignActions()
     {
@@ -63,7 +62,8 @@ public class Player : Subject
         AddAction(EnumsActions.DecreaseScale, OnDecreaseScale);
         AddAction(EnumsActions.ResetMutation, OnResetMutation);
     }
-    void AssignInput()
+
+    protected override void OnEnable()
     {
         _input = new Inputs();
         _input.Main.Enable();
@@ -73,10 +73,19 @@ public class Player : Subject
         _input.Main.Escape.performed += ctx => OnEscape();
     }
 
-    protected override void Start()
+    protected override void OnDisable()
     {
-        base.Start();
+        base.OnDisable();
 
+        _input.Main.Attack.performed -= ctx => OnLeftMouseButton();
+        _input.Main.Skill.performed -= ctx => OnRightMouseButton();
+        _input.Main.Escape.performed -= ctx => OnEscape();
+
+        _input.Main.Disable();
+    }
+
+    void Start()
+    {
         _curMovementSpeed = Speed;
         _freezeVal = 1;
 
@@ -179,7 +188,6 @@ public class Player : Subject
 
     public void Die()
     {
-        Debug.Log("die");
-        //NotObs(EnumsActions.Gameover);
+        NotObs(EnumsActions.Gameover);
     }
 }

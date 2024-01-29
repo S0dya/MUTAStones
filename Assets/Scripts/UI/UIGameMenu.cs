@@ -21,24 +21,32 @@ public class UIGameMenu : Subject
     {
         base.Awake();
 
+        Time.timeScale = 1;
         AddAction(EnumsActions.Escape, OnEscape);
+        AddAction(EnumsActions.Gameover, OnGameover);
     }
 
 
     //buttons
-    public void OnResumerButton()
+    public void OnResumeButton()
     {
         CloseMenu();
     }
 
     public void OnQuitButton()
     {
-
+        LoadingScene.Instance.OpenMenu(2);
     }
 
     public void OnToggleMusicButton()
     {
 
+    }
+
+    //buttons gameover
+    public void OnReplayButton()
+    {
+        LoadingScene.Instance.OpenScene(2, 2);
     }
 
     //actions
@@ -48,23 +56,34 @@ public class UIGameMenu : Subject
         else OpenMenu();
     }
 
+    void OnGameover()
+    {
+        TogglePanel(CgGameover, true);
+    }
+
     //main methods
     void OpenMenu()
     {
         _isMenuOpened = true;
 
-        Time.timeScale = 0;
-
-        ToggleCG(CgMenu, true);
+        TogglePanel(CgMenu, true);
     }
     void CloseMenu()
     {
         _isMenuOpened = false;
 
-        Time.timeScale = 1;
-
-        ToggleCG(CgMenu, false);
+        TogglePanel(CgMenu, false);
     }
+
+    
+
+    void TogglePanel(CanvasGroup cg, bool toggle)
+    {
+        Time.timeScale = toggle ? 1 : 0;
+
+        ToggleCG(cg, true);
+    }
+
 
     //other methods
     void ToggleCG(CanvasGroup cg, bool toggle)
