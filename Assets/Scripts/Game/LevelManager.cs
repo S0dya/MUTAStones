@@ -20,7 +20,7 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
 
     //waves
     int _amountOfDifferentEnemies = 2;
-    float _spawnDelay = 1;
+    float _spawnDelay = 0.8f;
 
     //threshold 
     EnemyClass _curEnemyClass;

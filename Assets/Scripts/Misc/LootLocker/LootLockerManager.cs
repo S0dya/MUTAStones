@@ -12,10 +12,7 @@ public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
 
     void Start()
     {
-        if (Settings.PlayerID != null)
-        {
-            OpenGame();
-        }
+        StartCoroutine(LoginCor());
     }
 
     public void SetPlayerName()
@@ -24,7 +21,7 @@ public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
         {
             if (response.success)
             {
-                Settings.PlayerID = playerNameInputfield.text;
+                Settings.PlayerName = playerNameInputfield.text;
                 Debug.Log("Succesfully set player name");
             }
             else Debug.Log("Could not set player name");
@@ -36,8 +33,18 @@ public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
     void OpenGame()
     {
         LoadingScene.Instance.LoadMenu();
-        CgField.alpha = 0;
-        CgField.blocksRaycasts = false;
+        ToggleCgField(false);
+    }
+
+    IEnumerator LoginCor()
+    {
+        yield return LoginRoutine();
+
+        if (Settings.PlayerName != null)
+        {
+            OpenGame();
+        }
+        else ToggleCgField(true);
     }
 
     public void Setup()
@@ -47,7 +54,6 @@ public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
 
     IEnumerator SetupRoutine()
     {
-        yield return LoginRoutine();
         yield return Leaderboard.Instance.FetchTopHighscoresRoutine();
     }
 
@@ -95,5 +101,11 @@ public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
             }
         });
         yield return new WaitWhile(() => done == false);
+    }
+
+    void ToggleCgField(bool toggle)
+    {
+        CgField.alpha = toggle ? 1 : 0;
+        CgField.blocksRaycasts = toggle;
     }
 }

@@ -9,8 +9,8 @@ public class SaveManager : SingletonMonobehaviour<SaveManager>
     {
         base.Awake();
 
-        LoadData();
-        Settings.firstTime = false;
+        //LoadData();
+        //Settings.firstTime = false;
     }
 
     void OnApplicationPause(bool pauseStatus)
@@ -36,7 +36,7 @@ public class SaveManager : SingletonMonobehaviour<SaveManager>
 
     public void SaveData()
     {
-        PlayerPrefs.SetString("PlayerID", Settings.PlayerID);
+        PlayerPrefs.SetString("PlayerName", Settings.PlayerName);
 
         for (int i = 0; i < Settings.musicStats.Length; i++) PlayerPrefs.SetFloat($"musicStats {i}", Settings.musicStats[i]);
         
@@ -52,6 +52,6 @@ public class SaveManager : SingletonMonobehaviour<SaveManager>
 
         for (int i = 0; i < Settings.musicStats.Length; i++) Settings.musicStats[i] = PlayerPrefs.GetFloat($"musicStats {i}");
 
-        Settings.PlayerID = PlayerPrefs.GetString("PlayerID");
+        Settings.PlayerName = PlayerPrefs.GetString("PlayerName");
     }
 }

@@ -40,7 +40,6 @@ public class Player : Subject
 
     bool _isShieldOn;
 
-
     protected override void Awake()
     {
         base.Awake();
