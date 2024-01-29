@@ -80,7 +80,7 @@ public class Player : Subject
         _curMovementSpeed = Speed;
         _freezeVal = 1;
 
-        _skillsSet.Add(EnumsActions.Shooting);
+        _skillsSet.Add(EnumsActions.SlowMo);
     }
 
     void Update()
@@ -121,7 +121,7 @@ public class Player : Subject
     
     void OnEscape()
     {
-        Die();
+        NotObs(EnumsActions.Escape);
     }
 
     //actions

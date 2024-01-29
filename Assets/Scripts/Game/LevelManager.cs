@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,7 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
 
     void Start()
     {
+        Shuffle(EnemiesClasses);
         _maxDifferentEnemiesAmount = EnemiesClasses.Length;
 
         StartCoroutine(WavesCor());
@@ -48,7 +50,7 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     {
         while (true)
         {
-            _curEnemyClass = EnemiesClasses[Random.Range(0, _amountOfDifferentEnemies)];
+            _curEnemyClass = EnemiesClasses[GetRandomVal(0, _amountOfDifferentEnemies)];
 
             switch (_curEnemyClass.SpawnEnum)
             {
@@ -74,7 +76,7 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
 
         _amountOfDifferentEnemies++;
     }
-    public void DecreaseSpawnDelay() => _spawnDelay *= 0.8f;
+    public void DecreaseSpawnDelay() => _spawnDelay *= 0.9f;
 
 
     //other methods
@@ -85,17 +87,17 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     
     public Vector2 GetRandomOffsetPos(float x, float y, float offset)
     {
-        return Random.Range(0, 2) == 1 ? GetRandomOffsetPosByX(x, y, offset) : GetRandomOffsetPosByY(x, y, offset);
+        return GetRandomVal(0, 2) == 1 ? GetRandomOffsetPosByX(x, y, offset) : GetRandomOffsetPosByY(x, y, offset);
     }
     public Vector2 GetRandomOffsetPosByX(float x, float y, float offset)
     {
-        return Random.Range(0, 2) == 1 ? new Vector2(Random.Range(x, x + offset), Random.Range(-y, y))
-            : new Vector2(Random.Range(-x - offset, -x), Random.Range(-y, y));
+        return GetRandomVal(0, 2) == 1 ? new Vector2(GetRandomVal(x, x + offset), GetRandomVal(-y, y))
+            : new Vector2(GetRandomVal(-x - offset, -x), GetRandomVal(-y, y));
     }
     public Vector2 GetRandomOffsetPosByY(float x, float y, float offset)
     {
-        return Random.Range(0, 2) == 1 ? new Vector2(Random.Range(-x, x), Random.Range(y, y + offset)) 
-            : new Vector2(Random.Range(-x, x), Random.Range(-y - offset, -y));
+        return GetRandomVal(0, 2) == 1 ? new Vector2(GetRandomVal(-x, x), GetRandomVal(y, y + offset)) 
+            : new Vector2(GetRandomVal(-x, x), GetRandomVal(-y - offset, -y));
     }
 
     Vector2 GetRandomOffsetPos()
@@ -120,5 +122,28 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
     void LoopThroughtEnemiesTransforms(Transform parent, System.Action<Enemy> action)
     {
         foreach (Transform transf in parent) action.Invoke(transf.GetComponent<Enemy>());
+    }
+
+    float GetRandomVal(float firstVal, float secVal)
+    {
+        return UnityEngine.Random.Range(firstVal, secVal);
+    }
+    int GetRandomVal(int firstVal, int secVal)
+    {
+        return UnityEngine.Random.Range(firstVal, secVal);
+    }
+
+    void Shuffle<T>(T[] array)
+    {
+        System.Random rng = new System.Random();
+        int n = array.Length;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = array[k];
+            array[k] = array[n];
+            array[n] = value;
+        }
     }
 }

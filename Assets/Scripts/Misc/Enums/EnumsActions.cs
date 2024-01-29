@@ -28,4 +28,6 @@ public enum EnumsActions
     IncreaseScale,
     DecreaseScale,
     ResetMutation,
+
+    Escape,
 }

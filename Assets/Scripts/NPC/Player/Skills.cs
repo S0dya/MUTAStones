@@ -33,6 +33,7 @@ public class Skills : Subject
         set { player._curMovementSpeed = value; }
     }
 
+
     //cors
     Coroutine _slowMoCor;
     Coroutine _dashCor;
@@ -51,9 +52,11 @@ public class Skills : Subject
         AddAction(EnumsActions.Shield, OnShield);
         AddAction(EnumsActions.ShieldBroke, OnShieldBroke);
         AddAction(EnumsActions.Shooting, OnShooting);
+
+        AddAction(EnumsActions.Escape, OnEscape);
     }
 
-    //skills
+    //skills actions
     void OnSlowMo() => _slowMoCor = GameManager.Instance.RestartCor(_slowMoCor, SlowMoCor());
     void OnDash() => _dashCor = GameManager.Instance.RestartCor(_dashCor, DashCor());
     void OnFreeze() => LevelManager.Instance.FreezeEnemies();
@@ -61,6 +64,11 @@ public class Skills : Subject
     void OnShield() => ToggleShield(true);
     void OnShieldBroke() => ToggleShield(false);
     void OnShooting() => _shootingCor = GameManager.Instance.RestartCor(_shootingCor, ShootingCor());
+
+    void OnEscape()
+    {
+        if (_slowMoCor != null) StopCoroutine(_slowMoCor);
+    }
 
     //cors
     IEnumerator DashCor()
@@ -118,6 +126,7 @@ public class Skills : Subject
         Vector2 directionOfMovement = (player._curClampedMousePos - (Vector2)transform.position).normalized;
         GameManager.Instance.Shoot(BulletPrefab, transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(directionOfMovement.y, directionOfMovement.x) * Mathf.Rad2Deg + rotation));
     }
+
     //other methods
     bool IsValBigger(float firstVal, float secondVal, float offset)
     {
