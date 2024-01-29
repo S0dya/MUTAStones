@@ -1210,6 +1210,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 895730352}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!225 &374588783
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1269,10 +1281,10 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 860864577
-      Data2: 1219213604
-      Data3: 1803634574
-      Data4: -851568304
+      Data1: 424855610
+      Data2: 1287617605
+      Data3: -350351697
+      Data4: 1322805424
     Path: event:/Music/Menu
   Event: 
   PlayEvent: 11
@@ -1680,6 +1692,18 @@ MonoBehaviour:
       - m_Target: {fileID: 895730352}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: OnPlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 895730352}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: OnButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2266,6 +2290,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 895730352}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &698738254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,6 +2751,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 895730352}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &871972453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2982,6 +3030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5997ff75fa6e33a4480a9f80f6af60b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionsDictionaries: []
   SettingsCg: {fileID: 1280275371}
   MusicSlider: {fileID: 531189010}
   SFXSlider: {fileID: 1321088458}
@@ -4662,6 +4711,18 @@ MonoBehaviour:
       - m_Target: {fileID: 895730352}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: OnSettingsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 895730352}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: OnButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -32,5 +32,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         return player.transform.position;
     }
 
-    public void Shoot(GameObject bulletPrefab, Vector2 pos, Quaternion rotation) => Instantiate(bulletPrefab, pos, rotation, EffectsParent);
+    public ParticleSystem Shoot(GameObject bulletPrefab, Vector2 pos, Quaternion rotation)
+    {
+        return Instantiate(bulletPrefab, pos, rotation, EffectsParent).GetComponent<ParticleSystem>();
+
+    }
 }

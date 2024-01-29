@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Menu : MonoBehaviour
+public class Menu : Subject
 {
     [SerializeField] CanvasGroup SettingsCg;
 
@@ -16,6 +16,9 @@ public class Menu : MonoBehaviour
 
     void Start()
     {
+        MusicSlider.value = Settings.musicStats[0];
+        SFXSlider.value = Settings.musicStats[1];
+
         ToggleMusicCG();
     }
 
@@ -32,6 +35,8 @@ public class Menu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OnButtonPressed() => Observer.Instance.NotifyObservers(EnumsActions.UIButtonPressed);
 
     //settings buttons
     public void OnToggleMusicButton()

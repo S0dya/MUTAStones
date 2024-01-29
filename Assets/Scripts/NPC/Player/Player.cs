@@ -21,7 +21,7 @@ public class Player : Subject
     Camera MainCamera;
     Inputs _input;
     Rigidbody2D _rb;
-    SpriteRenderer _sr;
+    [HideInInspector] public SpriteRenderer _sr;
 
     Material _trailMat;
 
@@ -108,7 +108,7 @@ public class Player : Subject
     //input
     void OnLeftMouseButton()
     {
-        if (!_canAttack)
+        if (!_canAttack || Time.timeScale == 0)
         {
             NotObs(EnumsActions.AttackUsedFailed);
             return;
@@ -122,7 +122,7 @@ public class Player : Subject
 
     void OnRightMouseButton()
     {
-        if (!_canUseSkill)
+        if (!_canUseSkill || Time.timeScale == 0)
         {
             NotObs(EnumsActions.SkillUsedFailed);
             return;
@@ -156,6 +156,8 @@ public class Player : Subject
 
         _trailMat.color = _sr.color = StartingColor;
         _skillsSet = new HashSet<EnumsActions>();
+
+        GameManager.Instance.GameData.ResetMutation();
     }
 
 
@@ -169,7 +171,7 @@ public class Player : Subject
         _trailMat.color = _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
         if (transform.localScale.x < 2) NotObs(EnumsActions.IncreaseScale);
 
-        GameManager.Instance.GameData.MutationsAmount++;
+        GameManager.Instance.GameData.OnMutated();
 
         _skillsSet.Add(mutation.Skill);
     }

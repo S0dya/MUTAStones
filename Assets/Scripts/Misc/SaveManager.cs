@@ -9,7 +9,7 @@ public class SaveManager : SingletonMonobehaviour<SaveManager>
     {
         base.Awake();
 
-        //LoadData();
+        LoadData();
         Settings.firstTime = false;
     }
 
@@ -46,9 +46,9 @@ public class SaveManager : SingletonMonobehaviour<SaveManager>
 
     public void LoadData()
     {
-        if (PlayerPrefs.GetInt("firstTime") == 1) return;
+        if (PlayerPrefs.GetInt("firstTime") == 0) return;
 
-        Settings.isMusicOn = PlayerPrefs.GetInt("isMusicOn") == 1;
+        Settings.isMusicOn = PlayerPrefs.GetInt("isMusicOn") == 0;
 
         for (int i = 0; i < Settings.musicStats.Length; i++) Settings.musicStats[i] = PlayerPrefs.GetFloat($"musicStats {i}");
 

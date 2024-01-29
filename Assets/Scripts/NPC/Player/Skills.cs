@@ -132,7 +132,10 @@ public class Skills : Subject
     void Shoot(float rotation)
     {
         Vector2 directionOfMovement = (player._curClampedMousePos - (Vector2)transform.position).normalized;
-        GameManager.Instance.Shoot(BulletPrefab, transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(directionOfMovement.y, directionOfMovement.x) * Mathf.Rad2Deg + rotation));
+        var pS = GameManager.Instance.Shoot(BulletPrefab, transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(directionOfMovement.y, directionOfMovement.x) * Mathf.Rad2Deg + rotation));
+
+        var mM = pS.main;
+        mM.startColor = player._sr.color;
     }
 
     //other methods

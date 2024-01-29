@@ -79,6 +79,8 @@ public class UIGameMenu : Subject
         TogglePanel(CgGameover, true);
     }
 
+    public void OnButtonPressed() => Observer.Instance.NotifyObservers(EnumsActions.UIButtonPressed);
+
     //main methods
     void TogglePanel(CanvasGroup cg, bool toggle)
     {

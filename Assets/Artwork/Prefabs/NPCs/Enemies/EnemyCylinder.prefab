@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e92f9d181d4e6d4d8b08df30406bbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 20
+  MovementSpeed: 25
   Mutation: {fileID: 11400000, guid: 08424ad5f76ce1346a71a84d3a6ace4c, type: 2}
   UnFreezeSpeed: 1
   ChangeDirectionSpeed: 5

@@ -1714,7 +1714,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2039881037
@@ -1735,6 +1735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2146787047}
   - component: {fileID: 2146787048}
+  - component: {fileID: 2146787049}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -1769,5 +1770,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165d1be9786623a4b97bfe84eb2a867f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kvSounds: []
-  kvsSounds: []
+  kvSounds:
+  - name: OnSkillUsed
+    sound:
+      Guid:
+        Data1: -850930398
+        Data2: 1210794105
+        Data3: 1577987996
+        Data4: -1142539503
+      Path: event:/SFX/Game/PlayerSkill
+  - name: OnAttackUsed
+    sound:
+      Guid:
+        Data1: 478874225
+        Data2: 1272527959
+        Data3: 1257695119
+        Data4: 651177804
+      Path: event:/SFX/Game/PlayerAttack
+  - name: OnGameover
+    sound:
+      Guid:
+        Data1: 1666850486
+        Data2: 1241186746
+        Data3: 477650363
+        Data4: 1591078682
+      Path: event:/SFX/Game/PlayerDeath
+  - name: OnUIButtonPressed
+    sound:
+      Guid:
+        Data1: -939217876
+        Data2: 1142044133
+        Data3: 1452563858
+        Data4: 1973541495
+      Path: event:/SFX/UI/Button
+--- !u!114 &2146787049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146787046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d44daad96afe34ab18ef36d6838e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionsDictionaries: []

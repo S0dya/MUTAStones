@@ -113,7 +113,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 0e4bb6e8df7798042891ff463f425c36, type: 2}
     - target: {fileID: 5131174539979318178, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: MovementSpeed
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5131174539979318178, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: UnFreezeSpeed

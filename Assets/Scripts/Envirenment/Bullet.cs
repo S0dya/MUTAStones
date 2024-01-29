@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     
     [SerializeField] Rigidbody2D Rb;
 
-    void Awake()
+    protected virtual void Awake()
     {
         var mainModule = Ps.main;
         mainModule.startRotation = transform.eulerAngles.z * Mathf.Deg2Rad;

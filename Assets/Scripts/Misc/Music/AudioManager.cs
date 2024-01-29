@@ -8,7 +8,6 @@ public class AudioManager : SingletonMonobehaviour<AudioManager>
 {
     [Header("Sounds")]
     [SerializeField] KeyValueSound[] kvSounds;
-    [SerializeField] KeyValuesSounds[] kvsSounds;
 
     Dictionary<string, EventInstance> eventInstancesDict = new Dictionary<string, EventInstance>();
     
