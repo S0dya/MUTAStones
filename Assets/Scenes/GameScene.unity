@@ -314,6 +314,8 @@ MonoBehaviour:
   - 25
   enemiesParent: {fileID: 17210300}
   EnemiesClasses:
+  - EnemyPrefab: {fileID: 2842436581009387425, guid: 73dcd53a48b7bc54bbced7e2d6dade5b, type: 3}
+    SpawnEnum: 2
   - EnemyPrefab: {fileID: 2842436581009387425, guid: 23462f45bdb27d7479a78b75fac3a784, type: 3}
     SpawnEnum: 0
   - EnemyPrefab: {fileID: 5516757653718932005, guid: 9ff46573cfaebcd44ace865c52725787, type: 3}
@@ -2307,67 +2309,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1683025107
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1683025108}
-  - component: {fileID: 1683025109}
-  - component: {fileID: 1683025110}
-  m_Layer: 15
-  m_Name: FreezeTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1683025108
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683025107}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 561477463}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1683025109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683025107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afd304c9064b47c4f9de4a1a79eee582, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!58 &1683025110
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683025107}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 5
 --- !u!1 &1709645443
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,14 +2639,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 765402089}
     m_Modifications:
-    - target: {fileID: 1450369834, guid: 87b33302af882214a815ad7af8524034, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 1450369836, guid: 87b33302af882214a815ad7af8524034, type: 3}
-      propertyPath: m_Color.a
-      value: 0.5882353
-      objectReference: {fileID: 0}
     - target: {fileID: 4128406789721168516, guid: 87b33302af882214a815ad7af8524034, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2755,20 +2688,8 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4128406789721168521, guid: 87b33302af882214a815ad7af8524034, type: 3}
-      propertyPath: Speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128406789721168521, guid: 87b33302af882214a815ad7af8524034, type: 3}
       propertyPath: EffectsParent
       value: 
       objectReference: {fileID: 1290952800}
-    - target: {fileID: 4128406789721168521, guid: 87b33302af882214a815ad7af8524034, type: 3}
-      propertyPath: MaxFreezeDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6389440951310454406, guid: 87b33302af882214a815ad7af8524034, type: 3}
-      propertyPath: BulletPrefab
-      value: 
-      objectReference: {fileID: 4823082910353693265, guid: 866f7f3dd68bb32418454aa34cf487c0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87b33302af882214a815ad7af8524034, type: 3}

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a6565b1d7a4b7145a97cceedc7e2151, type: 3}
-  m_Name: SlowMo
+  m_Name: Freeze
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: SlowMo
+  <Name>k__BackingField: Freeze
   <Description>k__BackingField: 
   <ItemImage>k__BackingField: {fileID: 0}
-  <Skill>k__BackingField: 0
-  <Color>k__BackingField: {r: 0.9607843, g: 0.32941177, b: 0, a: 1}
+  <Skill>k__BackingField: 2
+  <Color>k__BackingField: {r: 0.5803922, g: 0, b: 0.9607843, a: 1}

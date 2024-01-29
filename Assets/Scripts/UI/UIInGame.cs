@@ -46,23 +46,32 @@ public class UIInGame : Subject
         _curMilisecs += (int)(Time.deltaTime * 1000);
         _timeStrings[2] = GetStringFromTime(_curMilisecs).Substring(0, 2);
 
-        if (_curMilisecs >= 1000)
+        if (_curMilisecs >= 999)
         {
-            _curMilisecs -= 1000;
+            _curMilisecs -= 999;
             _curSecs++;
             _timeStrings[1] = GetStringFromTime(_curSecs);
 
-            if (_curSecs == 30) LevelManager.Instance.IncreaseEnemiesAmount();
+            if (_curSecs % 10 == 0)
+            {
+                LevelManager.Instance.DecreaseSpawnDelay();
+
+                if (_curSecs % 30 == 0) LevelManager.Instance.IncreaseEnemiesAmount();
+            }
+
+            if (_curSecs >= 60)
+            {
+                _curSecs -= 60;
+                _curMins++;
+
+                _timeStrings[1] = GetStringFromTime(_curSecs);
+                _timeStrings[0] = GetStringFromTime(_curMins);
+
+                Observer.Instance.NotifyObservers(EnumsActions.ResetMutation);
+            }
         }
 
-        if (_curSecs >= 60)
-        {
-            _curSecs -= 60;
-            _curMins++;
-            _timeStrings[0] = GetStringFromTime(_curMins);
-
-            LevelManager.Instance.DecreaseSpawnDelay();
-        }
+       
 
         TimerText.text = string.Join(':', _timeStrings);
     }
@@ -95,6 +104,6 @@ public class UIInGame : Subject
     //other scripts
     string GetStringFromTime(float val)
     {
-        return val > 10 ? val.ToString() : $"0{val}";
+        return val >= 10 ? val.ToString() : $"0{val}";
     }
 }

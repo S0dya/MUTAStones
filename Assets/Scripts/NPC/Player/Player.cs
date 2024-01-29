@@ -26,7 +26,7 @@ public class Player : Subject
     Material _trailMat;
 
     Vector2 _curMousePos;
-    Vector2 _curClampedMousePos;
+    [HideInInspector] public Vector2 _curClampedMousePos;
 
     [HideInInspector] public float _curMovementSpeed;
     [HideInInspector] public float _freezeVal;
@@ -61,6 +61,7 @@ public class Player : Subject
 
         AddAction(EnumsActions.IncreaseScale, OnIncreaseScale);
         AddAction(EnumsActions.DecreaseScale, OnDecreaseScale);
+        AddAction(EnumsActions.ResetMutation, OnResetMutation);
     }
     void AssignInput()
     {
@@ -132,22 +133,19 @@ public class Player : Subject
     void OnIncreaseScale() => transform.localScale += new Vector3(0.1f, 0.1f, 0);
     void OnDecreaseScale() => transform.localScale = Vector3.one;
 
-    //outside methods
-    public void SetFreezeVal(float distance)
+    void OnResetMutation()
     {
+        NotObs(EnumsActions.DecreaseScale);
 
-        _freezeVal = Mathf.Clamp01(distance / MaxFreezeDistance);
-
-        Debug.Log(distance + "   " + _freezeVal);
-
+        _trailMat.color = _sr.color = StartingColor;
+        _skillsSet = new HashSet<EnumsActions>();
     }
+
+
+    //outside methods
+    public void SetFreezeVal(float distance) => _freezeVal = Mathf.Clamp01(distance / MaxFreezeDistance);
     public void ResetFreezeVal() => _freezeVal = 1;
 
-    //other methods
-    Vector2 GetWorldPoint()
-    {
-        return MainCamera.ScreenToWorldPoint(_curClampedMousePos);
-    }
 
     public void Mutate(SO_Mutation mutation)
     {
@@ -155,6 +153,12 @@ public class Player : Subject
         if (transform.localScale.x < 2) NotObs(EnumsActions.IncreaseScale);
 
         _skillsSet.Add(mutation.Skill);
+    }
+    
+    //other methods
+    Vector2 GetWorldPoint()
+    {
+        return MainCamera.ScreenToWorldPoint(_curClampedMousePos);
     }
 
     void NotObs(EnumsActions enumAction) => Observer.Instance.NotifyObservers(enumAction);

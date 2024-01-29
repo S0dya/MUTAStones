@@ -60,7 +60,7 @@ public class Skills : Subject
     void OnAvoidEnemies() => LevelManager.Instance.ChangeEnemiesDirections();
     void OnShield() => ToggleShield(true);
     void OnShieldBroke() => ToggleShield(false);
-    void OnShooting() => _shootingCor = GameManager.Instance.RestartCor(_slowMoCor, SlowMoCor());
+    void OnShooting() => _shootingCor = GameManager.Instance.RestartCor(_shootingCor, ShootingCor());
 
     //cors
     IEnumerator DashCor()
@@ -113,8 +113,11 @@ public class Skills : Subject
             yield return new WaitForSeconds(ShootingDelay);
         }
     }
-    void Shoot(float rotation) => GameManager.Instance.Shoot(BulletPrefab, transform.position, Quaternion.Euler(0, 0, transform.eulerAngles.z + rotation));
-
+    void Shoot(float rotation)
+    {
+        Vector2 directionOfMovement = (player._curClampedMousePos - (Vector2)transform.position).normalized;
+        GameManager.Instance.Shoot(BulletPrefab, transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(directionOfMovement.y, directionOfMovement.x) * Mathf.Rad2Deg + rotation));
+    }
     //other methods
     bool IsValBigger(float firstVal, float secondVal, float offset)
     {

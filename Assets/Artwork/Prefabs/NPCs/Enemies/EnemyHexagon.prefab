@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 16
-  Mutation: {fileID: 11400000, guid: 7af40f0af49c709439fd244865019683, type: 2}
+  Mutation: {fileID: 11400000, guid: bfbdca6533f46ea4e913e286542c15ab, type: 2}
   UnFreezeSpeed: 2
   ChangeDirectionSpeed: 5
   _isChangingDirection: 0
@@ -94,7 +94,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.8009362, a: 1}
+  m_Color: {r: 0.5803922, g: 0, b: 0.9607843, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -149,5 +149,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0

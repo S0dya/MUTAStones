@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCircle : Enemy
+public class EnemyRectangle : Enemy
 {
     protected override void Start()
     {

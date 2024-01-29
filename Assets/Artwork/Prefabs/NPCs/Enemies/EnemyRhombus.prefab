@@ -37,11 +37,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2842436581009387426, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_Color.g
-      value: 0.5403299
+      value: 0.32941177
       objectReference: {fileID: 0}
     - target: {fileID: 2842436581009387426, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.9607843
       objectReference: {fileID: 0}
     - target: {fileID: 2842436581009387427, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: m_RootOrder
@@ -106,7 +106,7 @@ PrefabInstance:
     - target: {fileID: 5131174539979318178, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: Mutation
       value: 
-      objectReference: {fileID: 11400000, guid: db81caf3977a3c149b2888b7c23cdf79, type: 2}
+      objectReference: {fileID: 11400000, guid: 0e4bb6e8df7798042891ff463f425c36, type: 2}
     - target: {fileID: 5131174539979318178, guid: 6fcd9c49885378544b7f6785020a51e5, type: 3}
       propertyPath: MovementSpeed
       value: 40
