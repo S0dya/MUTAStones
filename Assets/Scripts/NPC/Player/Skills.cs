@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Skills : Subject
 {
+    [Header("attack")]
+    public float AttackDuration;
+
+    public float AttackDistance;
+    [SerializeField] LayerMask EnemiesLayer;
+
+    public float TargetInhaleScale;
+    public float InhaleSpeed;
+
     [Header("slow motion")]
     [Range(0.1f, 0.9f)] public float SlowMoValue;
     public float SlowMoDuration;
@@ -20,21 +29,37 @@ public class Skills : Subject
     [SerializeField] GameObject ShieldObj;
 
     //local
-    Player player;
+    Player _player;
+    LineRenderer _lr;
 
     float MaxSpeed
     {
-        get { return player.Speed; }
-        set { player.Speed = value; }
+        get { return _player.Speed; }
+        set { _player.Speed = value; }
     }
     float MovementSpeed
     {
-        get { return player._curMovementSpeed; }
-        set { player._curMovementSpeed = value; }
+        get { return _player._curMovementSpeed; }
+        set { _player._curMovementSpeed = value; }
     }
 
+    float _targetInhaleScaleOffset;
+
+    //bools
+    bool _isAttacking;
+    bool _isInhaling;
+
+    //treshold
+    Vector2 _attackDirection;
+    Transform _enemyHitTransf;
+
+    float _enemyTransformScaleX;
 
     //cors
+    Coroutine _attackDurationCor;
+    Coroutine _attackCor;
+    Coroutine _inhaleCor;
+
     Coroutine _slowMoCor;
     Coroutine _dashCor;
     Coroutine _shootingCor;
@@ -43,7 +68,10 @@ public class Skills : Subject
     {
         base.Awake();
 
-        player = GetComponent<Player>();
+        _player = GetComponent<Player>();
+        _lr = GetComponent<LineRenderer>();
+
+        AddAction(EnumsActions.AttackUsed, OnAttack);
 
         AddAction(EnumsActions.SlowMo, OnSlowMo);
         AddAction(EnumsActions.Dash, OnDash);
@@ -56,6 +84,21 @@ public class Skills : Subject
         AddAction(EnumsActions.Escape, OnEscape);
     }
 
+    void Start()
+    {
+        _targetInhaleScaleOffset = TargetInhaleScale * 0.9f;
+
+        ClearLr();
+    }
+
+    //actions
+    void OnAttack()
+    {
+        _attackDurationCor = GameManager.Instance.RestartCor(_attackDurationCor, AttackDurationCor());
+
+        _attackCor = GameManager.Instance.RestartCor(_attackCor, AttackCor());
+    }
+
     //skills actions
     void OnSlowMo() => _slowMoCor = GameManager.Instance.RestartCor(_slowMoCor, SlowMoCor());
     void OnDash() => _dashCor = GameManager.Instance.RestartCor(_dashCor, DashCor());
@@ -63,13 +106,15 @@ public class Skills : Subject
     void OnAvoidEnemies() => LevelManager.Instance.ChangeEnemiesDirections();
     void OnShield()
     {
-        Observer.Instance.NotifyObservers(EnumsActions.ShieldActivate);
+        NotObs(EnumsActions.ShieldActivate);
+
         ToggleShield(true);
     }
     void OnShieldBroke()
     {
         ToggleShield(false);
-        Observer.Instance.NotifyObservers(EnumsActions.ShieldDeactivate);
+
+        NotObs(EnumsActions.ShieldDeactivate);
     }
     void OnShooting() => _shootingCor = GameManager.Instance.RestartCor(_shootingCor, ShootingCor());
 
@@ -79,6 +124,61 @@ public class Skills : Subject
     }
 
     //cors
+    IEnumerator AttackDurationCor()
+    {
+        _isAttacking = true;
+        yield return new WaitForSeconds(AttackDuration);
+        _isAttacking = false;
+
+        if (!_isInhaling) ClearLr();
+    }
+    IEnumerator AttackCor()
+    {
+        SetLr();
+
+        while (_isAttacking)
+        {
+            _attackDirection = (_player.GetWorldPoint() - (Vector2)transform.position).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, _attackDirection, AttackDistance, EnemiesLayer);
+
+            if (hit.collider != null)
+            {
+                _enemyHitTransf = hit.collider.transform;
+
+                _inhaleCor = GameManager.Instance.RestartCor(_inhaleCor, InhaleCor());
+
+                break;
+            }
+
+            SetLrPos(transform.position, (Vector2)transform.position + _attackDirection);
+
+            yield return null;
+        }
+    }
+    IEnumerator InhaleCor()
+    {
+        _isInhaling = true;
+        
+        Enemy enemy = _enemyHitTransf.GetComponent<Enemy>();
+        _enemyTransformScaleX = 1;
+
+        while (_enemyHitTransf != null && _enemyTransformScaleX > TargetInhaleScale)
+        {
+            _enemyTransformScaleX = enemy.AdditionalScaleSpeed = Mathf.Lerp(_enemyTransformScaleX, _targetInhaleScaleOffset, InhaleSpeed * Time.deltaTime);
+            _enemyHitTransf.localScale = new Vector2(_enemyTransformScaleX, _enemyTransformScaleX);
+
+            SetLrPos(transform.position, _enemyHitTransf.position);
+
+            yield return null;
+        }
+
+        if (enemy != null) enemy.Killed();
+        ClearLr();
+
+        _isInhaling = false;
+    }
+
+    //skills cors
     IEnumerator DashCor()
     {
         while (IsValBigger(DashSpeed, MovementSpeed, 0.1f))
@@ -131,14 +231,19 @@ public class Skills : Subject
     }
     void Shoot(float rotation)
     {
-        Vector2 directionOfMovement = (player._curClampedMousePos - (Vector2)transform.position).normalized;
-        var pS = GameManager.Instance.Shoot(BulletPrefab, transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(directionOfMovement.y, directionOfMovement.x) * Mathf.Rad2Deg + rotation));
-
-        var mM = pS.main;
-        mM.startColor = player._sr.color;
+        Vector2 directionOfMovement = (_player._curClampedMousePos - (Vector2)transform.position).normalized;
+        GameManager.Instance.Shoot(BulletPrefab, transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(directionOfMovement.y, directionOfMovement.x) * Mathf.Rad2Deg + rotation));
     }
 
     //other methods
+    void SetLrPos(Vector2 startPos, Vector2 EndPos)
+    { //for (int i = 0; i < poss.Length; i++) _lr.SetPosition(i, poss[i]);
+        _lr.SetPosition(0, startPos);
+        _lr.SetPosition(1, EndPos);
+    }
+    void ClearLr() => _lr.positionCount = 0;
+    void SetLr() => _lr.positionCount = 2;
+
     bool IsValBigger(float firstVal, float secondVal, float offset)
     {
         return firstVal > secondVal + offset;

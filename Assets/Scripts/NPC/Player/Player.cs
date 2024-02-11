@@ -114,9 +114,6 @@ public class Player : Subject
         }
         
         NotObs(EnumsActions.AttackUsed);
-
-        Vector2 direction = (GetWorldPoint() - (Vector2)transform.position).normalized;
-        Instantiate(SlashEffectPrefab, direction * 6 + (Vector2)transform.position, Quaternion.identity, EffectsParent);
     }
 
     void OnRightMouseButton()
@@ -130,6 +127,7 @@ public class Player : Subject
         NotObs(EnumsActions.SkillUsed);
 
         foreach (var skill in _skillsSet) NotObs(skill);
+        NotObs(EnumsActions.ResetMutation);
     }
     
     void OnEscape()
@@ -155,10 +153,7 @@ public class Player : Subject
 
         _trailMat.color = _sr.color = StartingColor;
         _skillsSet = new HashSet<EnumsActions>();
-
-        GameManager.Instance.GameData.ResetMutation();
     }
-
 
     //outside methods
     public void SetFreezeVal(float distance) => _freezeVal = Mathf.Clamp01(distance / MaxFreezeDistance);
@@ -176,12 +171,10 @@ public class Player : Subject
     }
     
     //other methods
-    Vector2 GetWorldPoint()
+    public Vector2 GetWorldPoint()
     {
         return MainCamera.ScreenToWorldPoint(_curClampedMousePos);
     }
-
-    void NotObs(EnumsActions enumAction) => Observer.Instance.NotifyObservers(enumAction);
 
     IEnumerator ToggleShieldCor()
     {

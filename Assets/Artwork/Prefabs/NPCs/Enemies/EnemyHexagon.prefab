@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3974450685604546233}
   m_Layer: 10
   m_Name: EnemyHexagon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2842436581009387425}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.25, y: 2.25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8541518759869948133}
@@ -52,6 +52,7 @@ MonoBehaviour:
   Mutation: {fileID: 11400000, guid: bfbdca6533f46ea4e913e286542c15ab, type: 2}
   UnFreezeSpeed: 2
   ChangeDirectionSpeed: 5
+  AdditionalScaleSpeed: 1
   _isChangingDirection: 0
 --- !u!212 &2842436581009387426
 SpriteRenderer:
@@ -94,7 +95,7 @@ SpriteRenderer:
   m_SortingLayerID: -1302447269
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d2200231b971bff45aaec9dc0109db5f, type: 3}
   m_Color: {r: 0.5803922, g: 0, b: 0.9607843, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -143,14 +144,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8828125}
+    oldSize: {x: 2.3703704, y: 2.3703704}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.9}
+  m_Size: {x: 2, y: 1.8}
   m_EdgeRadius: 0
 --- !u!1 &9159762204225018733
 GameObject:

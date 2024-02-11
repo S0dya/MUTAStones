@@ -6,16 +6,5 @@ public class GameData
     public int Score;
     public int MutationsAmount;
 
-    public void OnMutated()
-    {
-        AttackDelayDuration++;
-        SkillDelayDuration++;
-        MutationsAmount++;
-    }
-
-    public void ResetMutation()
-    {
-        AttackDelayDuration = 3f;
-        SkillDelayDuration = 4;
-    }
+    public void OnMutated() => MutationsAmount++;
 }

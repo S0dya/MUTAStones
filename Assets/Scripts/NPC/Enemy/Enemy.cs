@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     public float UnFreezeSpeed;
     public float ChangeDirectionSpeed;
 
+    [HideInInspector] public float AdditionalScaleSpeed = 1;
+
     //local
     Rigidbody2D _rb;
 
@@ -50,7 +52,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        _rb.velocity = MovemenetDirection * _curMovementSpeed;
+        _rb.velocity = MovemenetDirection * _curMovementSpeed * AdditionalScaleSpeed;
     }
 
     void SetMovementDirection()
@@ -65,6 +67,16 @@ public class Enemy : MonoBehaviour
         _isChangingDirection = true;
 
         _changeDirectionCor = GameManager.Instance.RestartCor(_changeDirectionCor, ChangeDirectionCor());
+    }
+    
+    public void Killed()
+    {
+        Observer.Instance.NotifyObservers(EnumsActions.EnemyKilled);
+
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player.Mutate(Mutation);
+
+        Destroy(gameObject);
     }
 
     //cors
@@ -100,12 +112,7 @@ public class Enemy : MonoBehaviour
     {
         switch (collision.gameObject.layer)
         {
-            case 14:
-                Observer.Instance.NotifyObservers(EnumsActions.EnemyKilled);
-
-                Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-                player.Mutate(Mutation);
-                break;
+            case 14: Killed(); break;
             case 16: Observer.Instance.NotifyObservers(EnumsActions.ShieldBroke); break;
             case 13: return;
             default: break;
@@ -113,4 +120,5 @@ public class Enemy : MonoBehaviour
 
         Destroy(gameObject);
     }
+
 }

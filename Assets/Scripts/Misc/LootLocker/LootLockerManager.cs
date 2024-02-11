@@ -12,7 +12,7 @@ public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
 
     void Start()
     {
-        StartCoroutine(LoginCor());
+        //StartCoroutine(LoginCor());
     }
 
     public void SetPlayerName()

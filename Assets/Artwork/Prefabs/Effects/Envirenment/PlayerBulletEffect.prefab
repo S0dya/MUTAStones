@@ -63,6 +63,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6450734568686832212, guid: 88c7a730938e84343bac5a56b1b77ab2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450734568686832212, guid: 88c7a730938e84343bac5a56b1b77ab2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450734568686832212, guid: 88c7a730938e84343bac5a56b1b77ab2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6450734568686832214, guid: 88c7a730938e84343bac5a56b1b77ab2, type: 3}
       propertyPath: m_Name
       value: PlayerBulletEffect

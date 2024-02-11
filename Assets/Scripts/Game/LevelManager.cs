@@ -76,7 +76,7 @@ public class LevelManager : SingletonMonobehaviour<LevelManager>
 
         _amountOfDifferentEnemies++;
     }
-    public void DecreaseSpawnDelay() => _spawnDelay *= 0.9f;
+    public void DecreaseSpawnDelay() => _spawnDelay *= 0.95f;
 
 
     //other methods

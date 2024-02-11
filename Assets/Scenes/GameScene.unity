@@ -2025,7 +2025,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 17210300}
-  - {fileID: 561477463}
+  - {fileID: 1202910602}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3645,6 +3645,38 @@ MonoBehaviour:
   AttackDelayImage: {fileID: 397194975}
   SkillDelayImage: {fileID: 1763070211}
   TimerText: {fileID: 1331260890}
+--- !u!1 &1202910601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202910602}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1202910602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202910601}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 561477463}
+  m_Father: {fileID: 765402089}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1216489578
 GameObject:
   m_ObjectHideFlags: 0
@@ -5525,15 +5557,15 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 765402089}
+    m_TransformParent: {fileID: 1202910602}
     m_Modifications:
-    - target: {fileID: 1450369836, guid: 87b33302af882214a815ad7af8524034, type: 3}
+    - target: {fileID: 1435548029, guid: 87b33302af882214a815ad7af8524034, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+      objectReference: {fileID: 2100000, guid: 3b8b7fba50e20f643bfbf56c9cf098f2, type: 2}
     - target: {fileID: 4128406789721168516, guid: 87b33302af882214a815ad7af8524034, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4128406789721168516, guid: 87b33302af882214a815ad7af8524034, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5583,5 +5615,21 @@ PrefabInstance:
       propertyPath: EffectsParent
       value: 
       objectReference: {fileID: 1290952800}
+    - target: {fileID: 6389440951310454406, guid: 87b33302af882214a815ad7af8524034, type: 3}
+      propertyPath: DashSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389440951310454406, guid: 87b33302af882214a815ad7af8524034, type: 3}
+      propertyPath: InhaleSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389440951310454406, guid: 87b33302af882214a815ad7af8524034, type: 3}
+      propertyPath: SlowMoValue
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389440951310454406, guid: 87b33302af882214a815ad7af8524034, type: 3}
+      propertyPath: AttackDistance
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87b33302af882214a815ad7af8524034, type: 3}

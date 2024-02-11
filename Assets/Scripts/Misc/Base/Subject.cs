@@ -23,21 +23,15 @@ public class Subject : MonoBehaviour
 
             _actionDictionary.Add(kvp.ObserverEnum, wrapper.InvokeEvent);
         }
-
     }
 
-    protected virtual void OnEnable()
+    protected virtual void OnEnable() => Observer.Instance.AddObserver(this);
+    protected virtual void OnDisable() => Observer.Instance.RemoveObserver(this);
+
+    public void PerformAction(EnumsActions enumAction)
     {
-        Observer.Instance.AddObserver(this);
+        if (_actionDictionary.ContainsKey(enumAction)) _actionDictionary[enumAction].Invoke();
     }
 
-    protected virtual void OnDisable()
-    {
-        Observer.Instance.RemoveObserver(this);
-    }
-
-    public void PerformAction(EnumsActions actionEnum)
-    {
-        if (_actionDictionary.ContainsKey(actionEnum)) _actionDictionary[actionEnum].Invoke();
-    }
+    public void NotObs(EnumsActions enumAction) => Observer.Instance.NotifyObservers(enumAction);
 }

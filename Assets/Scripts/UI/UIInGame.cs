@@ -66,8 +66,6 @@ public class UIInGame : Subject
 
                 _timeStrings[1] = GetStringFromTime(_curSecs);
                 _timeStrings[0] = GetStringFromTime(_curMins);
-
-                Observer.Instance.NotifyObservers(EnumsActions.ResetMutation);
             }
         }
 
@@ -102,7 +100,7 @@ public class UIInGame : Subject
             yield return null;
         }
 
-        Observer.Instance.NotifyObservers(enumAction);
+        NotObs(enumAction);
     }
 
     //other scripts

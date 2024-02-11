@@ -36,7 +36,7 @@ public class Menu : Subject
         Application.Quit();
     }
 
-    public void OnButtonPressed() => Observer.Instance.NotifyObservers(EnumsActions.UIButtonPressed);
+    public void OnButtonPressed() => NotObs(EnumsActions.UIButtonPressed);
 
     //settings buttons
     public void OnToggleMusicButton()
