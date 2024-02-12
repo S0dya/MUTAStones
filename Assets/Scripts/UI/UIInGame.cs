@@ -80,11 +80,12 @@ public class UIInGame : Subject
 
     void OnGameover()
     {
-        int score = (int)(_curMins * 60 + _curSecs + _curMilisecs / 1000 * GameManager.Instance.GameData.MutationsAmount);
+        int totalTime = (int)(_curMins * 60 + _curSecs + _curMilisecs / 1000);
 
-        GameManager.Instance.GameData.Score = score;
+        GameManager.Instance.GameData.TotalTime = totalTime;
+        GameManager.Instance.GameData.Score = (int)((totalTime * (GameManager.Instance.GameData.MutationsAmount == 0 ? 1 : GameManager.Instance.GameData.MutationsAmount) + GameManager.Instance.GameData.SkillsAmount) * GameManager.Instance.GameData.MaxSize);
 
-        LootLockerManager.Instance.SubmitScore(score);
+        LootLockerManager.Instance.SubmitScore(GameManager.Instance.GameData.Score);
     }
 
     //cors

@@ -16,7 +16,7 @@ public class LoadingScene : SingletonMonobehaviour<LoadingScene>
     //outside methods
     public void LoadMenu()
     {        
-        //StartCoroutine(LoadMenuCor());
+        StartCoroutine(LoadMenuCor());
     }
     public void OpenMenu(int sceneToClose)
     {

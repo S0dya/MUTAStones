@@ -17,11 +17,13 @@ public class LootLockerManager : SingletonMonobehaviour<LootLockerManager>
 
     public void SetPlayerName()
     {
-        LootLockerSDKManager.SetPlayerName(playerNameInputfield.text, (response) =>
+        string playerName = (playerNameInputfield.text.Length > 12 ? playerNameInputfield.text.Substring(0, 12) : playerNameInputfield.text);
+
+        LootLockerSDKManager.SetPlayerName(playerName, (response) =>
         {
             if (response.success)
             {
-                Settings.PlayerName = playerNameInputfield.text;
+                Settings.PlayerName = playerName;
                 Debug.Log("Succesfully set player name");
             }
             else Debug.Log("Could not set player name");

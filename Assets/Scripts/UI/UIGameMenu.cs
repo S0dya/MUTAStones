@@ -12,6 +12,11 @@ public class UIGameMenu : Subject
 
     [SerializeField] CanvasGroup CgMusic;
 
+    [Header("Results")]
+    [SerializeField] TextMeshProUGUI TotalTimeText;
+    [SerializeField] TextMeshProUGUI MutationsText;
+    [SerializeField] TextMeshProUGUI SkillsText;
+    [SerializeField] TextMeshProUGUI MaxSizeText;
     [SerializeField] TextMeshProUGUI ScoreText;
 
     [SerializeField] StudioEventEmitter EventEmmiter;
@@ -105,6 +110,11 @@ public class UIGameMenu : Subject
     IEnumerator SetScoreCor()
     {
         yield return null;
+
+        TotalTimeText.text = GameManager.Instance.GameData.TotalTime.ToString(); 
+        MutationsText.text = GameManager.Instance.GameData.MutationsAmount.ToString();
+        SkillsText.text = GameManager.Instance.GameData.SkillsAmount.ToString();
+        MaxSizeText.text = GameManager.Instance.GameData.MaxSize.ToString();
 
         ScoreText.text = GameManager.Instance.GameData.Score.ToString();
     }

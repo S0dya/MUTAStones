@@ -144,7 +144,12 @@ public class Player : Subject
     void OnShieldActivate() => _isShieldOn = true;
     void OnShieldDeactivate() => StartCoroutine(ToggleShieldCor());
 
-    void OnIncreaseScale() => transform.localScale += new Vector3(0.1f, 0.1f, 0);
+    void OnIncreaseScale()
+    {
+        transform.localScale += new Vector3(0.1f, 0.1f, 0);
+
+        GameManager.Instance.GameData.MaxSize = Mathf.Max(GameManager.Instance.GameData.MaxSize, transform.localScale.x);
+    }
     void OnDecreaseScale() => transform.localScale = Vector3.one;
 
     void OnResetMutation()
@@ -163,9 +168,10 @@ public class Player : Subject
     public void Mutate(SO_Mutation mutation)
     {
         _trailMat.color = _sr.color = Color.Lerp(_sr.color, mutation.Color, 0.5f);
-        if (transform.localScale.x < 2) NotObs(EnumsActions.IncreaseScale);
+        if (transform.localScale.x < 5) NotObs(EnumsActions.IncreaseScale);
 
         GameManager.Instance.GameData.OnMutated();
+        if (!_skillsSet.Contains(mutation.Skill)) GameManager.Instance.GameData.OnNewSkill();
 
         _skillsSet.Add(mutation.Skill);
     }

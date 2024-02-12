@@ -138,19 +138,22 @@ public class Skills : Subject
 
         while (_isAttacking)
         {
-            _attackDirection = (_player.GetWorldPoint() - (Vector2)transform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, _attackDirection, AttackDistance, EnemiesLayer);
-
-            if (hit.collider != null)
+            if (Time.timeScale != 0)
             {
-                _enemyHitTransf = hit.collider.transform;
+                _attackDirection = (_player.GetWorldPoint() - (Vector2)transform.position).normalized;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, _attackDirection, AttackDistance, EnemiesLayer);
 
-                _inhaleCor = GameManager.Instance.RestartCor(_inhaleCor, InhaleCor());
+                if (hit.collider != null)
+                {
+                    _enemyHitTransf = hit.collider.transform;
 
-                break;
+                    _inhaleCor = GameManager.Instance.RestartCor(_inhaleCor, InhaleCor());
+
+                    break;
+                }
+
+                SetLrPos(transform.position, (Vector2)transform.position + _attackDirection);
             }
-
-            SetLrPos(transform.position, (Vector2)transform.position + _attackDirection);
 
             yield return null;
         }
